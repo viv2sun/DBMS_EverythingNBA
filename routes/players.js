@@ -135,8 +135,8 @@ router.get('/player/:pid', function(req, res, next){
                         console.log(err.message);
                     }
                     else{
-                        console.log(result.rows);
-                        res.json(result.rows);
+                        console.log(result.rows[0]);
+                        res.json(result.rows[0]);
                     }
                     connection.close(function(err){
                         if(err){

@@ -13,6 +13,11 @@ var player_service_1 = require('../../services/player.service');
 var PlayersComponent = (function () {
     function PlayersComponent(playerService) {
         this.playerService = playerService;
+        this.objectKeys = Object.keys;
+        this.map = {};
+        this.map['TPTS'] = 'Total Points';
+        this.map['TAST'] = 'Total Assists';
+        this.map['TSTL'] = 'Total Steals';
         // this.playerService.getPlayers()
         //     .subscribe(players => {
         //         console.log(players);
@@ -29,10 +34,11 @@ var PlayersComponent = (function () {
         });
     };
     PlayersComponent.prototype.viewPlayer = function (id) {
+        var _this = this;
         this.playerService.viewPlayer(id)
             .subscribe(function (player) {
             console.log(player);
-            //this.players = players;
+            _this.selectedPlayer = player;
         });
     };
     PlayersComponent = __decorate([

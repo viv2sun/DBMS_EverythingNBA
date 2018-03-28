@@ -1,5 +1,7 @@
-<div class="row">
-<form class="well col-md-6" (submit)="searchPlayer($event, name)">
+<div class="container">
+<div class="col-md-6">
+<div>
+<form class="well" (submit)="searchPlayer($event, name)">
       <div class="form-group">
         <div class="col-md-8">
             <input type="text" [(ngModel)]="name" name="name" class="form-control" placeholder="Search Player">   
@@ -13,12 +15,43 @@
 
 <div class="player-list">
     <div *ngFor="let player of players">
+        <div class="card">
         <div class="col-md-5">
             {{player.FIRST_NAME}} {{player.LAST_NAME}}   
         </div> 
         <div class="col-md-3">
             <input type="button" (click)="viewPlayer(player.PLAYER_ID)" value="View Profile" class="btn btn-info">    
         </div>
+        </div>
         <br><br>
     </div>
+</div>
+</div>
+
+<div class="col-md-6">
+    <div *ngIf="selectedPlayer">
+        <h1>Player : {{selectedPlayer.FIRST_NAME}} {{selectedPlayer.LAST_NAME}} </h1>
+        <form>
+            <table class="table">
+                    <tr>
+                        <th>FIELD</th>
+                        <th>VALUE</th>
+                    </tr>
+                    <tr *ngFor="let key of objectKeys(selectedPlayer)">
+                        <td *ngIf="map[key]">{{map[key]}}</td>
+                        <td *ngIf="map[key]">{{selectedPlayer[key]}}</td>
+                    </tr>
+            </table>
+          <!-- <div class="form-group">
+            <label for="selectedPlayer.FIRST_NAME">selectedPlayer.FIRST_NAME</label>
+            <input type="text" class="form-control" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="selectedPlayer.LAST_NAME">selectedPlayer.LAST_NAME</label>
+            <input type="text" class="form-control" id="alterEgo">
+          </div> -->
+        </form>
+    </div>
+</div>
+
 </div>

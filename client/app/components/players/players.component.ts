@@ -9,10 +9,17 @@ import {Player} from '../../../Player';
 })
 
 export class PlayersComponent { 
+    selectedPlayer : Player;
     players: Player[];
     name: string;
-    
+    objectKeys = Object.keys;
+
+    map = {};
     constructor(private playerService:PlayerService){
+
+        this.map['TPTS'] = 'Total Points';
+        this.map['TAST'] = 'Total Assists';
+        this.map['TSTL'] = 'Total Steals';
         // this.playerService.getPlayers()
         //     .subscribe(players => {
         //         console.log(players);
@@ -33,7 +40,7 @@ export class PlayersComponent {
         this.playerService.viewPlayer(id)
             .subscribe(player => {
                 console.log(player);
-                //this.players = players;
+                this.selectedPlayer = player;
             });
     }
     
