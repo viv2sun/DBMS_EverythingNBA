@@ -14,8 +14,10 @@
 </div>
 
 <div class="player-list">
+    <div class="btn-group-vertical" role="group">
     <div *ngFor="let player of players">
-        <div class="card">
+        <button type="button" class="btn btn-lg btn-link active" (click)="viewPlayer(player.PLAYER_ID)">{{player.FIRST_NAME}} {{player.LAST_NAME}}</button>
+        <!-- <div class="card">
         <div class="col-md-5">
             {{player.FIRST_NAME}} {{player.LAST_NAME}}   
         </div> 
@@ -23,14 +25,15 @@
             <input type="button" (click)="viewPlayer(player.PLAYER_ID)" value="View Profile" class="btn btn-info">    
         </div>
         </div>
-        <br><br>
+        <br><br> -->
+    </div>
     </div>
 </div>
 </div>
 
 <div class="col-md-6">
     <div *ngIf="selectedPlayer">
-        <h1>Player : {{selectedPlayer.FIRST_NAME}} {{selectedPlayer.LAST_NAME}} </h1>
+        <h1>{{selectedPlayer.FIRST_NAME}} {{selectedPlayer.LAST_NAME}}</h1>
         <form>
             <table class="table">
                     <tr>
