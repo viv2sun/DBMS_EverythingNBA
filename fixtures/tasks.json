@@ -1,0 +1,22 @@
+[
+    {
+        "title" : "Cook Food",
+        "isDone" : true,
+        "id" : "cook"
+    },
+    {
+        "title" : "DBMS Project Checkpoint",
+        "isDone" : false,
+        "id" : "dbms"
+    },
+    {
+        "title" : "Grocery Shopping",
+        "isDone" : true,
+        "id" : "shop"
+    },
+    {
+        "title" : "PLP Assignment 5",
+        "isDone" : false,
+        "id" : "plp"
+    }
+]

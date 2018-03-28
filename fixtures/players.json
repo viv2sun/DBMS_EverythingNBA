@@ -1,0 +1,22 @@
+[
+    {
+        "name" : "Russell Westbrook",
+        "team" : "Oklahoma City Thunder",
+        "id" : "brodie"
+    },
+    {
+        "name" : "Lebron James",
+        "team" : "Cleveland Cavaliers",
+        "id" : "kingjames"
+    },
+    {
+        "name" : "Steph Curry",
+        "team" : "Golden State Warriors",
+        "id" : "skyfucker"
+    },
+    {
+        "name" : "Giannis Antentoukounmpo",
+        "team" : "Milwaukee Bucks",
+        "id" : "greekfreak"
+    }
+]
