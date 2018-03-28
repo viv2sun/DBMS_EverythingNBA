@@ -19,8 +19,9 @@ var PlayersComponent = (function () {
         //         this.players = players;
         //     });
     }
-    PlayersComponent.prototype.searchPlayer = function (name) {
+    PlayersComponent.prototype.searchPlayer = function (event, name) {
         var _this = this;
+        event.preventDefault();
         this.playerService.searchPlayer(name)
             .subscribe(function (players) {
             console.log(players);

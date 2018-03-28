@@ -20,7 +20,8 @@ export class PlayersComponent {
         //     });
     }
     
-    searchPlayer(name){
+    searchPlayer(event, name){
+        event.preventDefault();
         this.playerService.searchPlayer(name)
             .subscribe(players => {
                 console.log(players);

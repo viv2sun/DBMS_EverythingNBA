@@ -1,11 +1,11 @@
 <div class="row">
-<form class="well col-md-6" (submit)="addPlayer($event)">
+<form class="well col-md-6" (submit)="searchPlayer($event, name)">
       <div class="form-group">
         <div class="col-md-8">
             <input type="text" [(ngModel)]="name" name="name" class="form-control" placeholder="Search Player">   
         </div>
         <div class="col-md-4">
-            <input type="button" (click)="searchPlayer(name)" value="Search" class="form-control btn btn-primary btn-lg">     
+            <input type="button" (click)="searchPlayer($event, name)" value="Search" class="form-control btn btn-primary btn-lg">     
         </div>
       </div>
 </form>
