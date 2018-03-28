@@ -12,22 +12,26 @@ var core_1 = require('@angular/core');
 var player_service_1 = require('../../services/player.service');
 var PlayersComponent = (function () {
     function PlayersComponent(playerService) {
-        var _this = this;
         this.playerService = playerService;
-        this.playerService.getPlayers()
+        // this.playerService.getPlayers()
+        //     .subscribe(players => {
+        //         console.log(players);
+        //         this.players = players;
+        //     });
+    }
+    PlayersComponent.prototype.searchPlayer = function (name) {
+        var _this = this;
+        this.playerService.searchPlayer(name)
             .subscribe(function (players) {
             console.log(players);
             _this.players = players;
         });
-    }
-    PlayersComponent.prototype.searchPlayer = function (event) {
-        event.preventDefault();
-        var newPlayer = {
-            firstName: this.firstName
-        };
-        this.playerService.searchPlayer(newPlayer)
-            .subscribe(function (players) {
-            console.log(players);
+    };
+    PlayersComponent.prototype.viewPlayer = function (id) {
+        this.playerService.viewPlayer(id)
+            .subscribe(function (player) {
+            console.log(player);
+            //this.players = players;
         });
     };
     PlayersComponent = __decorate([

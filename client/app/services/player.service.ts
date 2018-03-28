@@ -20,9 +20,15 @@ export class PlayerService{
     //         .map(res => res.json());
     // }
     
-    searchPlayer(playerName){
-        console.log(playerName);
-        return this.http.get('/feature/players')
+    searchPlayer(name){
+        console.log(name);
+        return this.http.get('/feature/player/search/'+name)
+            .map(res => res.json());
+    }
+
+    viewPlayer(id){
+        console.log(id);
+        return this.http.get('/feature/player/'+id)
             .map(res => res.json());
     }
     // deleteTask(id){

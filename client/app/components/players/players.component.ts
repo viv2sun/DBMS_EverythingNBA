@@ -10,25 +10,29 @@ import {Player} from '../../../Player';
 
 export class PlayersComponent { 
     players: Player[];
-    firstName: string;
+    name: string;
     
     constructor(private playerService:PlayerService){
-        this.playerService.getPlayers()
+        // this.playerService.getPlayers()
+        //     .subscribe(players => {
+        //         console.log(players);
+        //         this.players = players;
+        //     });
+    }
+    
+    searchPlayer(name){
+        this.playerService.searchPlayer(name)
             .subscribe(players => {
                 console.log(players);
                 this.players = players;
             });
     }
-    
-    searchPlayer(event){
-        event.preventDefault();
-        var newPlayer = {
-            firstName: this.firstName
-        }
-        
-        this.playerService.searchPlayer(newPlayer)
-            .subscribe(players => {
-                console.log(players);
+
+    viewPlayer(id){
+        this.playerService.viewPlayer(id)
+            .subscribe(player => {
+                console.log(player);
+                //this.players = players;
             });
     }
     

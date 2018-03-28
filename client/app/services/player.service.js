@@ -26,9 +26,14 @@ var PlayerService = (function () {
     //     return this.http.post('/feature/player', JSON.stringify(newPlayer), {headers: headers})
     //         .map(res => res.json());
     // }
-    PlayerService.prototype.searchPlayer = function (playerName) {
-        console.log(playerName);
-        return this.http.get('/feature/players')
+    PlayerService.prototype.searchPlayer = function (name) {
+        console.log(name);
+        return this.http.get('/feature/player/search/' + name)
+            .map(function (res) { return res.json(); });
+    };
+    PlayerService.prototype.viewPlayer = function (id) {
+        console.log(id);
+        return this.http.get('/feature/player/' + id)
             .map(function (res) { return res.json(); });
     };
     PlayerService = __decorate([

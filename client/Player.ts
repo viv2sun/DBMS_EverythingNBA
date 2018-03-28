@@ -1,5 +1,33 @@
-export class Player{
-    id: string;
-    name: string;
-    team: string;
+export class Player {
+    PLAYER_ID: string;
+    FIRST_NAME: string;
+    LAST_NAME: string;
+    MIDDLE_NAME: string;
+    NICK_NAME: string;
+    COLLEGE: string;
+    HEIGHT: number;
+    WEIGHT: number;
+    COUNTRY: string;
+    BIRTH_CITY: string;
+    RACE: string;
+    POSITION: string;
+    TEAM: string;
+    TEAM_MATES: string;
+    TPTS: number;
+    TAST: number;
+    TSTL: number;
+    TBLK: number;
+    TTO: number;
+    TPF: number;
+    TGP: number;
+    TGS: number;
+    TFGM: number;
+    TFGA: number;
+    TFTM: number;
+    TFTA: number;
+    THREEPM: number;
+    THREEPA: number;
+    TOREB: number;
+    TDREB: number;
+    TMIN: number;
 }
