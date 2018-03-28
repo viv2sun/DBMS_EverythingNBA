@@ -20,7 +20,4 @@ router.get('/task/:id', function(req, res, next){
     }
 });
 
-
-
-
 module.exports = router;
