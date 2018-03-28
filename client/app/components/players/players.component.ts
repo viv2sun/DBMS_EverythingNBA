@@ -16,10 +16,35 @@ export class PlayersComponent {
 
     map = {};
     constructor(private playerService:PlayerService){
-
-        this.map['TPTS'] = 'Total Points';
-        this.map['TAST'] = 'Total Assists';
-        this.map['TSTL'] = 'Total Steals';
+        this.map['FIRST_NAME'] = 'First Name';
+        this.map['LAST_NAME'] = 'Last Name';
+        this.map['MIDDLE_NAME'] = 'Middle Name';
+        this.map['COLLEGE'] = 'College';
+        this.map['HEIGHT'] = 'Height';
+        this.map['WEIGHT'] = 'Weight';
+        this.map['COUNTRY'] = 'Country';
+        this.map['BIRTH_CITY'] = 'Birth City';
+        this.map['POSITION'] = 'Playing Position';
+        this.map['TEAM'] = 'Teams Played For';
+        this.map['TEAM_MATES'] = 'Popular Team Members';
+        this.map['RACE'] = 'Race';
+        this.map['TPTS'] = 'Points';
+        this.map['TAST'] = 'Assists';
+        this.map['TSTL'] = 'Steals';
+        this.map['TBLK'] = 'Blocks';
+        this.map['TTO'] = 'Turnovers';
+        this.map['TPF'] = 'Personal Fouls';
+        this.map['TGP'] = 'Games Played';
+        this.map['TGS'] = 'Games Started';
+        this.map['TFGM'] = 'Field Goals Made';
+        this.map['TFGA'] = 'Field Goals Attemped';
+        this.map['TFTM'] = 'Free Throws Made';
+        this.map['TFTA'] = 'Free Throws Attempted';
+        this.map['THREEPM'] = '3 Points Made';
+        this.map['THREEPA'] = '3 Points Attempted';
+        this.map['TOREB'] = 'Offensive Rebounds';
+        this.map['TDREB'] = 'Defensive Rebounds';
+        this.map['TMIN'] = 'Total Minutes Played';
         // this.playerService.getPlayers()
         //     .subscribe(players => {
         //         console.log(players);
