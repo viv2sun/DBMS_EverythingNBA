@@ -34,7 +34,7 @@ function getTeams(res) {
     oracledb.getConnection(config, function(err, connection){
         if (err) 
         {
-            res.send(err.message); 
+            //res.send(err.message); 
         }
         else {
             console.log("Connection Established....");
@@ -50,26 +50,32 @@ function getTeams(res) {
 }
 
 function getYear(teamAndYear, connection, res) {
-    console.log('getting squad details------');
         
     connection.execute(
         "select distinct year from team_stats\
         order by year", function(err, result){
 
-            teamAndYear.years = result.rows;
-            
-            res.json(teamAndYear);
+            var yearArr = [];
+
+            result.rows.forEach(function(item) {
+                yearArr.push(item.YEAR);
+            });
+
+            teamAndYear.years = yearArr;
+
+            console.log(teamAndYear);
+            //res.json(teamAndYear);
 
             connection.close(function(err){
                 if(err){
                     console.log(err.message); 
-                    res.send(err.message); 
+                    //res.send(err.message); 
                 }
                 console.log("Connection Closed....");
             });
             
         });
-}
+    }
 
 function getTeamDetails(teamDetails, teamName, teamYear, res) {
     oracledb.getConnection(config, function(err, connection){
@@ -130,5 +136,5 @@ function getTeamSquad(teamDetails, teamName, teamYear, connection, res) {
 }
 
 //getTeamDetails({}, 'BOS', 2000, null);
-//getTeams(null);
+getTeams(null);
 module.exports = router;
