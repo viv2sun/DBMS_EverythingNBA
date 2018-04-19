@@ -11,7 +11,7 @@ const config = {
 
 var fs = require("fs");
 
-router.get('/team/view/:tname/:tyear', function(req, res, next){
+router.get('/team/view:tname/:tyear', function(req, res, next){
     console.log("Node JS: Seach Team API" );
     console.log(req.body);
     console.log(req.params.tname);

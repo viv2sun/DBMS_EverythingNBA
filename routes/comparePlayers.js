@@ -110,8 +110,7 @@ function getFamousTeamMates(players, player1, player2, connection, res) {
                 players[item.PID].teamMates.push(item.TEAM_MATES);
             });
             
-            getPeakYears(players, player1, player2, connection, res);
-            //res.json(teamDetails);           
+            getPeakYears(players, player1, player2, connection, res);        
         });
 }
 

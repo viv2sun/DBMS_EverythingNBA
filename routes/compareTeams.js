@@ -64,16 +64,17 @@ function getYear(teamAndYear, connection, res) {
         });
 }
 
-router.get('/comparePlayers', function(req, res, next){
+router.get('/compareTeams:team1/:team2/:year', function(req, res, next){
     let conn;
-    var player1 = req.params.pid1;
-    var player2 = req.params.pid2;
+    var team1 = req.params.team1;
+    var team2 = req.params.team2;
+    var year = req.params.year;
 
-    comparePlayers(player1, player2, res);
+    compareTeams(team1, team2, year, res);
 });
 
-function comparePlayers(player1, player2, res) {
-    players = {};
+function compareTeams(team1, team2, year, res) {
+    teams = {};
 
     oracledb.getConnection(config, function(err, connection){
         if (err) 
@@ -84,213 +85,96 @@ function comparePlayers(player1, player2, res) {
         else {
             console.log("Connection Established....");
                 connection.execute(
-                    "Select ps.Player pid, Sum(ps.Pts) tpts, Sum(ps.AST) tast, Sum(ps.STL) tstl, Sum(ps.BLK) tblk,\
-                        Sum(ps.trno) tto, Sum(ps.PF) tpf, Sum(ps.GP) tgp, Sum(ps.GS) tgs, Sum(ps.fgm) tfgm, \
-                        Sum(ps.fga) tfga, Sum(ps.ftm) tftm, Sum(ps.fta) tfta, Sum(ps.threepm) threepm, Sum(ps.threepa) threepa,\
-                        Sum(ps.oreb) toreb, Sum(ps.dreb) tdreb, Sum(ps.minutes) tmin\
-                    from PLAYER_STATS ps\
-                    where ps.player in (:player1, :player2)\
-                    group by ps.Player",
-                [player1, player2], function(err, result){
+                    "select t.team_id team_id, t.name team, ts.div_rank div_rank, ts.conf_rank conf_rank, ts.home_win home_win, ts.home_loss home_loss, \
+                    ts.away_win away_win, ts.away_loss away_loss, ts.no_of_games games_played, ts.o_ast assists, ts.o_pts points,\
+                    ts.o_blk blocks, ts.o_stl steals, ts.o_3pm threes, (ts.o_def_reb + ts.o_off_reb) as rebounds \
+                from team_stats ts, team t\
+                where t.team_id = ts.team\
+                    and ts.team in (:team1, :team2)\
+                    and ts.year = :year",
+                [team1, team2, year], function(err, result){
                 if(err){
                     console.log(err.message); 
                     //res.send(err.message); 
                 }
                 else{
                     result.rows.forEach(function(item) {
-                        players[item.PID] = item;
+                        teams[item.TEAM_ID] = item;
                     });
                     
-                    getFamousTeamMates(players, player1, player2, connection, res);
+                    getHeadToHeadStats(teams, team1, team2, year, connection, res);
                 }                
             });
         }
     });
 }
 
-function getFamousTeamMates(players, player1, player2, connection, res) {
+function getHeadToHeadStats(teams, team1, team2, year, connection, res) {
     
-    console.log('getting famous team mates');
+    console.log('getting head to head stats');
     connection.execute(
-        "select distinct pl.pid pid, pl.player team_mates\
-            from (select op.pid pid, p.LAST_NAME || ', ' || p.FIRST_NAME player, sum(ps.pts) pts\
-                    from (select distinct p2.player player, p1.player pid\
-                        from player_stats p1, player_stats p2\
-                        where p1.player = :player1\
-                            and p1.player <> p2.player\
-                            and p1.team = p2.team\
-                            and p1.year = p2.year) op,\
-                            player_stats ps,\
-                            player p\
-                    where p.player_id = op.player\
-                        and op.player = ps.player\
-                    group by ps.player, op.pid, p.last_name, p.first_name\
-                    order by pts desc) pl\
-            where rownum <= 3\
-            UNION ALL\
-            select distinct pl.pid pid, pl.player team_mates\
-                    from (select op.pid pid, p.LAST_NAME || ', ' || p.FIRST_NAME player, sum(ps.pts) pts\
-                        from (select distinct p2.player player, p1.player pid\
-                            from player_stats p1, player_stats p2\
-                            where p1.player = :player2\
-                                and p1.player <> p2.player\
-                                and p1.team = p2.team\
-                                and p1.year = p2.year) op,\
-                                player_stats ps,\
-                                player p\
-                        where p.player_id = op.player\
-                            and op.player = ps.player\
-                        group by ps.player, op.pid, p.last_name, p.first_name\
-                        order by pts desc) pl\
-            where rownum <= 3",
-        [player1, player2], function(err, result){
+        "select hth.team team, sum(hth.points) total_points, sum(hth.win) total_wins, sum(hth.win * hth.playoff) playoff_wins, count(*) games_played\
+        from (select g.team_id team, g.points points, g.is_playoff playoff,\
+                (case when g.result = 'L'\
+                     then 0\
+                     else 1\
+                end) win\
+            from game g\
+            where g.team_id in (:team1, :team2)\
+                and g.opp_team_id in (:team3, :team4)\
+                and extract(year from g.game_date) = :year) hth\
+        group by hth.team",
+        [team1, team2, team1, team2, year], function(err, result){
 
             if(err) {
                 console.log(err);
             }
 
-            players[player1].teamMates = [];
-            players[player2].teamMates = [];
-
             result.rows.forEach(function(item) {
-                players[item.PID].teamMates.push(item.TEAM_MATES);
+                teams[item.TEAM].head_to_head = item;
             });
             
-            getPeakYears(players, player1, player2, connection, res);
+            getTeamSquad(teams, team1, team2, year, connection, res);
             //res.json(teamDetails);           
         });
 }
 
-function getPeakYears(players, player1, player2, connection, res) {
-    console.log('getting peak years');
+function getTeamSquad(teams, team1, team2, year, connection, res) {
+    console.log('getting the squad for the team');
     connection.execute(
-        "select py.player pid, py.year peak_years\
-            from (select ps.year year, ps.player player\
-                from player_stats ps\
-                where player = :player1\
-                order by ps.pts desc) py\
-            where rownum <= 3\
-            union all\
-            select py.player, py.year peak_years\
-            from (select ps.year year, ps.player player\
-                from player_stats ps\
-                where player = :player2\
-                order by ps.pts desc) py\
-            where rownum <= 3\
-            order by peak_years",
-        [player1, player2], function(err, result){
+        "select ps.team team, p.player_id player_id, p.LAST_NAME || ', ' || p.FIRST_NAME player_name\
+        from player_stats ps,\
+            player p\
+        where ps.player = p.player_id\
+            and ps.team in (:team1, :team2)\
+            and ps.year = :year",
+        [team1, team2, year], function(err, result){
 
             if(err) {
                 console.log(err);
             }
 
-            players[player1].peakYears = [];
-            players[player2].peakYears = [];
+            teams[team1].squad = [];
+            teams[team2].squad = [];
 
             result.rows.forEach(function(item) {
-                players[item.PID].peakYears.push(item.PEAK_YEARS);
-            });
+                teams[item.TEAM].squad.push(item);
+                console.log(teams[item.TEAM].squad[0]);
+            });            
             
-            getConferenceTitles(players, player1, player2, connection, res);
-            //res.json(teamDetails);           
-        });
-}
-
-
-function getConferenceTitles(players, player1, player2, connection, res) {
-    console.log('getting No. of conference titles');
-    connection.execute(
-        "select ps.player pid, count(*) count\
-        from team_stats ts,\
-            player_stats ps\
-        where ts.team = ps.team\
-            and ts.year = ps.year\
-            and ps.player in (:player1, :player2)\
-            and ts.conf_rank = 1\
-        group by ps.player",
-        [player1, player2], function(err, result){
-
-            if(err) {
-                console.log(err);
-            }
-
-            result.rows.forEach(function(item) {
-                players[item.PID].CONF_TITLE_COUNT = item.COUNT;
-            });
-            
-            getTeamsPlayedFor(players, player1, player2, connection, res);
-            //res.json(teamDetails);           
-        });
-}
-
-function getTeamsPlayedFor(players, player1, player2, connection, res) {
-    console.log('getting teams played for');
-    connection.execute(
-        "select career.player pid, wm_concat(career.team || ' ' || career.year) team\
-        from (select minp.player player, t.name team, minp.minyear || '-' || maxp.maxyear as year\
-                from (Select  ps.player player, ps.team team, min(ps.year) minyear\
-                        from Player_stats ps\
-                        where ps.player in (:player1, :player2)\
-                        group by ps.player, ps.team) minp,\
-                    (Select  ps.player player, ps.team team, max(ps.year) maxyear\
-                        from Player_stats ps \
-                        where ps.player in (:player1, :player2)\
-                        group by ps.player, ps.team) maxp,\
-                    team t\
-                where maxp.player = minp.player\
-                    and t.team_id = minp.team\
-                    and maxp.team = minp.team) career\
-        group by career.player",
-        [player1, player2], function(err, result){
-
-            if(err) {
-                console.log(err);
-            }
-
-            result.rows.forEach(function(item) {
-                players[item.PID].TEAMS_PLAYED = item.TEAM;
-            });
-            
-            console.log(players);
+            console.log(teams);
+            //res.json(teams); 
 
             connection.close(function(err){
                 if(err){
                     console.log(err.message); 
-                    //res.send(err.message); 
+                    res.send(err.message); 
                 }
                 console.log("Connection Closed....");
-            });
-            //res.json(teamDetails);           
+            });                      
         });
 }
 
-function searchPlayers(playerName, res) {
-    oracledb.getConnection(config, function(err, connection){
-        if (err) 
-        { 
-            console.log(err.message); 
-            //res.send(err.message); 
-        }
-        else {
-            console.log("Connection Established....");
-                connection.execute(
-                    "select p.player_id, p.last_name, p.first_name from player p where lower(p.last_name) like :firstName or lower(p.first_name) like :lastName order by p.first_name",
-                    [playerName, playerName], function(err, result){
-                        console.log(result.rows);
-                        //res.json(result.rows);
-                        connection.close(function(err){
-                            if(err){
-                                console.log(err.message); 
-                                //res.send(err.message); 
-                            }
-                            console.log("Connection Closed....");
-                        });
-                    });
-        }
-        });
-}
-
-
-//searchPlayers('lebron');
-comparePlayers('jamesle01', 'abdulka01', null);
+//compareTeams('BOS', 'LAL', 1984, null);
+getTeams(null);
 module.exports = router;
