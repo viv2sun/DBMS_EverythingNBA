@@ -11,14 +11,60 @@ const config = {
 
 var fs = require("fs");
 
-router.get('/searchPlayer:pname', function(req, res, next){
-    let conn;
-    var playerName = '%' + req.params.pname + '%';
+router.get('/team/getteams', function(req, res, next){
+    console.log("Node JS: Team and Year dropdown API" );
 
-    searchPlayers(playerName, res);
+    getTeams(res);    
 });
 
-router.get('/comparePlayers:pid1/:pid2', function(req, res, next){
+function getTeams(res) {
+    oracledb.getConnection(config, function(err, connection){
+        if (err) 
+        {
+            //res.send(err.message); 
+        }
+        else {
+            console.log("Connection Established....");
+            teamAndYear = {};
+            connection.execute(
+            "select team_id, name from team\
+            order by team_id", function(err, result){
+                teamAndYear.teams = result.rows;
+                getYear(teamAndYear, connection, res);   
+            });
+        }
+    });
+}
+
+function getYear(teamAndYear, connection, res) {
+        
+    connection.execute(
+        "select distinct year from team_stats\
+        order by year", function(err, result){
+
+            var yearArr = [];
+
+            result.rows.forEach(function(item) {
+                yearArr.push(item.YEAR);
+            });
+
+            teamAndYear.years = yearArr;
+
+            console.log(teamAndYear);
+            //res.json(teamAndYear);
+
+            connection.close(function(err){
+                if(err){
+                    console.log(err.message); 
+                    //res.send(err.message); 
+                }
+                console.log("Connection Closed....");
+            });
+            
+        });
+}
+
+router.get('/comparePlayers', function(req, res, next){
     let conn;
     var player1 = req.params.pid1;
     var player2 = req.params.pid2;

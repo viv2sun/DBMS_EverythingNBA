@@ -13,33 +13,6 @@ var fs = require("fs");
 var content = fs.readFileSync("./fixtures/players.json");
 var jsonContent = JSON.parse(content);
 
-router.get('/players', function(req, res, next){
-    console.log(jsonContent);
-    let conn;
-    oracledb.getConnection(config, function(err, connection){
-    if (err) 
-    { 
-        console.log(err.message); 
-        res.send(err.message); 
-    }
-    else {
-        console.log("Connection Established....");
-            connection.execute(
-            'select * from player where lower(last_name) LIKE \'%james%\'', function(err, result){
-                console.log(result.rows);
-                res.json(result.rows);
-                console.log(connection);
-                connection.close(function(err){
-                    if(err){
-                        console.log(err.message); 
-                        res.send(err.message); 
-                    }
-                    console.log("Connection Closed....");
-                });
-            });
-    }
-    });
-});
 
 router.get('/player/search/:pname', function(req, res, next){
     console.log("Node JS: Seach Player API" );
