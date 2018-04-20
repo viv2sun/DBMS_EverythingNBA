@@ -15,13 +15,19 @@ var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var tasks_component_1 = require('./components/tasks/tasks.component');
 var players_component_1 = require('./components/players/players.component');
+var teamcmp_component_1 = require('./components/compareTeams/teamcmp.component');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-            declarations: [app_component_1.AppComponent, tasks_component_1.TasksComponent, players_component_1.PlayersComponent],
+            declarations: [
+                app_component_1.AppComponent,
+                tasks_component_1.TasksComponent,
+                players_component_1.PlayersComponent,
+                teamcmp_component_1.CompareTeamsComponent
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

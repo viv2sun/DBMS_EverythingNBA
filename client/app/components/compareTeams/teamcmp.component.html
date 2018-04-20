@@ -1,0 +1,21 @@
+<div class="container">
+        <h1>Compare Teams</h1>
+        <div class="col-md-6">
+                <div>
+                        <form class="well">
+                                <select ng-model="team1" ng-options="team.NAME for team in teams">
+                                        {{team.NAME}}
+                                </select>
+                        </form>
+                </div>
+        </div>
+        <div class="col-md-6">
+                <div>
+                        <form class="well">
+                                <select ng-model="team2" ng-options="team.NAME for team in teams">
+                                        {{team.NAME}}
+                                </select>
+                        </form>
+                </div>
+        </div>
+</div>

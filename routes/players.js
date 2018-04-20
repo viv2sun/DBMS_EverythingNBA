@@ -13,7 +13,6 @@ var fs = require("fs");
 var content = fs.readFileSync("./fixtures/players.json");
 var jsonContent = JSON.parse(content);
 
-
 router.get('/player/search/:pname', function(req, res, next){
     console.log("Node JS: Seach Player API" );
     console.log(req.body);

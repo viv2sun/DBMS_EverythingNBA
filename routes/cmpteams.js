@@ -11,9 +11,8 @@ const config = {
 
 var fs = require("fs");
 
-router.get('/team/getteams', function(req, res, next){
+router.get('/teams', function(req, res, next){
     console.log("Node JS: Team and Year dropdown API" );
-
     getTeams(res);    
 });
 
@@ -51,7 +50,7 @@ function getYear(teamAndYear, connection, res) {
             teamAndYear.years = yearArr;
 
             console.log(teamAndYear);
-            //res.json(teamAndYear);
+            res.json(teamAndYear);
 
             connection.close(function(err){
                 if(err){
@@ -176,5 +175,5 @@ function getTeamSquad(teams, team1, team2, year, connection, res) {
 }
 
 //compareTeams('BOS', 'LAL', 1984, null);
-getTeams(null);
+//getTeams(null);
 module.exports = router;

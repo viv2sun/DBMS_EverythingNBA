@@ -45,11 +45,6 @@ export class PlayersComponent {
         this.map['TOREB'] = 'Offensive Rebounds';
         this.map['TDREB'] = 'Defensive Rebounds';
         this.map['TMIN'] = 'Total Minutes Played';
-        // this.playerService.getPlayers()
-        //     .subscribe(players => {
-        //         console.log(players);
-        //         this.players = players;
-        //     });
     }
     
     searchPlayer(event, name){

@@ -1,5 +1,23 @@
 <div class="container">
-    <h1>Player Profile</h1>
-    <hr>
-    <players></players>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <ul id="featureMenu" class="nav navbar-nav" (click)="setFeature($event)">
+                    <li ><a >Home</a></li>
+                    <li ><a >View Squad</a></li>
+                    <li class="active"><a >View Player</a></li>
+                    <li ><a >Compare Players</a></li>
+                    <li ><a >Compare Teams</a></li>
+                    <li ><a >Leaderboard</a></li>
+                    <li ><a >Stat Insights</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div *ngIf="selectedFeature == 'viewPlayer'">
+        <players></players>
+    </div>
+    <div *ngIf="selectedFeature == 'compareTeam'">
+        <teamcmp></teamcmp>
+    </div>
 </div>

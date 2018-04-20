@@ -11,15 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var task_service_1 = require('./services/task.service');
 var player_service_1 = require('./services/player.service');
+var teamcmp_service_1 = require('./services/teamcmp.service');
 var AppComponent = (function () {
     function AppComponent() {
+        // Map Page Names to pageSelectors
+        this.map = {};
+        this.map['View Player'] = 'viewPlayer';
+        this.map['Compare Teams'] = 'compareTeam';
+        this.selectedFeature = "viewPlayer";
+        //this.selectedFeature = "compareTeam";
     }
+    AppComponent.prototype.setFeature = function (event) {
+        event.preventDefault();
+        this.selectedPageName = event.srcElement.innerHTML;
+        console.log(this.map[this.selectedPageName]);
+        if (this.selectedFeature != this.map[this.selectedPageName]) {
+            this.selectedFeature = this.map[this.selectedPageName];
+        }
+        var document = event.srcElement.ownerDocument;
+        for (var _i = 0, _a = document.querySelectorAll("li.active"); _i < _a.length; _i++) {
+            var li = _a[_i];
+            li.classList.remove("active");
+        }
+        event.srcElement.parentElement.classList.add("active");
+    };
     AppComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'my-app',
             templateUrl: 'app.component.html',
-            providers: [task_service_1.TaskService, player_service_1.PlayerService]
+            providers: [task_service_1.TaskService, player_service_1.PlayerService, teamcmp_service_1.CompareTeamService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

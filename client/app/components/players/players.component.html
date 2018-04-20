@@ -1,4 +1,5 @@
 <div class="container">
+        <h1>Player Profile</h1>
 <div class="col-md-6">
 <div>
 <form class="well" (submit)="searchPlayer($event, name)">
@@ -17,15 +18,6 @@
     <div class="btn-group-vertical" role="group">
     <div *ngFor="let player of players">
         <button type="button" class="btn btn-lg btn-link active" (click)="viewPlayer(player.PLAYER_ID)">{{player.FIRST_NAME}} {{player.LAST_NAME}}</button>
-        <!-- <div class="card">
-        <div class="col-md-5">
-            {{player.FIRST_NAME}} {{player.LAST_NAME}}   
-        </div> 
-        <div class="col-md-3">
-            <input type="button" (click)="viewPlayer(player.PLAYER_ID)" value="View Profile" class="btn btn-info">    
-        </div>
-        </div>
-        <br><br> -->
     </div>
     </div>
 </div>
@@ -45,14 +37,6 @@
                         <td *ngIf="map[key]">{{selectedPlayer[key]}}</td>
                     </tr>
             </table>
-          <!-- <div class="form-group">
-            <label for="selectedPlayer.FIRST_NAME">selectedPlayer.FIRST_NAME</label>
-            <input type="text" class="form-control" id="name" required>
-          </div>
-          <div class="form-group">
-            <label for="selectedPlayer.LAST_NAME">selectedPlayer.LAST_NAME</label>
-            <input type="text" class="form-control" id="alterEgo">
-          </div> -->
         </form>
     </div>
 </div>
