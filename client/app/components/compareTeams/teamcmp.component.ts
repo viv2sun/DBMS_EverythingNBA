@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {CompareTeamService} from '../../services/teamcmp.service';
 import {TeamItem} from '../../../TeamList';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   moduleId: module.id,
@@ -8,19 +10,44 @@ import {TeamItem} from '../../../TeamList';
   templateUrl: 'teamcmp.component.html'
 })
 
-export class CompareTeamsComponent { 
+export class CompareTeamsComponent implements OnInit { 
     years : number[];
     teams : TeamItem[];
+    dataLoaded : boolean;
+    data : String[];
 
     map = {};
     constructor(private compareTeamService:CompareTeamService){
-      this.compareTeamService.getTeams()
-          .subscribe(teamAndYear => {
+
+    }
+
+    getTeams() {
+        this.compareTeamService.getTeams()
+          .toPromise()
+          .then(teamAndYear => {
             console.log("Inside Subscribe");
             console.log(teamAndYear);
             this.years = teamAndYear.years;
             this.teams = teamAndYear.teams;
-            console.log(this.teams[10]);
+            this.dataLoaded = true;
           });
+    }
+
+    compare(event, team1, team2, year){
+        console.log(team1);
+        console.log(team2);
+        console.log(year);
+        event.preventDefault();
+        this.compareTeamService.compareTeams(team1, team2, year)
+            .subscribe(data => {
+                console.log(data);
+                //this.data = data;
+            });
+
+    }
+
+    ngOnInit() {
+      this.dataLoaded = false;
+      this.getTeams();
     }
 }

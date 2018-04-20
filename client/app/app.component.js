@@ -18,8 +18,8 @@ var AppComponent = (function () {
         this.map = {};
         this.map['View Player'] = 'viewPlayer';
         this.map['Compare Teams'] = 'compareTeam';
-        this.selectedFeature = "viewPlayer";
-        //this.selectedFeature = "compareTeam";
+        //this.selectedFeature = "viewPlayer";
+        this.selectedFeature = "compareTeam";
     }
     AppComponent.prototype.setFeature = function (event) {
         event.preventDefault();

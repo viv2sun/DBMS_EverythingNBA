@@ -9,8 +9,13 @@ export class CompareTeamService{
     }
     
     getTeams(){
-        console.log('Get Teams');
         return this.http.get('/teamcmp/teams')
+            .map(res => res.json());
+    }
+
+    compareTeams(team1, team2, year){
+        console.log('Compare Teams');
+        return this.http.get('/teamcmp/compareteams'+team1+'/'+team2+'/'+year)
             .map(res => res.json());
     }
 }

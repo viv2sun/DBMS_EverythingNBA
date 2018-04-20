@@ -10,6 +10,8 @@ const config = {
 };
 
 var fs = require("fs");
+// var content = fs.readFileSync("./fixtures/teams.json");
+// var jsonContent = JSON.parse(content);
 
 router.get('/teams', function(req, res, next){
     console.log("Node JS: Team and Year dropdown API" );
@@ -48,8 +50,6 @@ function getYear(teamAndYear, connection, res) {
             });
 
             teamAndYear.years = yearArr;
-
-            console.log(teamAndYear);
             res.json(teamAndYear);
 
             connection.close(function(err){
@@ -63,7 +63,8 @@ function getYear(teamAndYear, connection, res) {
         });
 }
 
-router.get('/compareTeams:team1/:team2/:year', function(req, res, next){
+router.get('/compareteams:team1/:team2/:year', function(req, res, next){
+    console.log("Compare Teams in Node");
     let conn;
     var team1 = req.params.team1;
     var team2 = req.params.team2;
@@ -158,11 +159,11 @@ function getTeamSquad(teams, team1, team2, year, connection, res) {
 
             result.rows.forEach(function(item) {
                 teams[item.TEAM].squad.push(item);
-                console.log(teams[item.TEAM].squad[0]);
+                //console.log(teams[item.TEAM].squad[0]);
             });            
             
             console.log(teams);
-            //res.json(teams); 
+            res.json(teams); 
 
             connection.close(function(err){
                 if(err){

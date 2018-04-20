@@ -17,8 +17,12 @@ var CompareTeamService = (function () {
         console.log('Compare Team Service Initialized...');
     }
     CompareTeamService.prototype.getTeams = function () {
-        console.log('Get Teams');
         return this.http.get('/teamcmp/teams')
+            .map(function (res) { return res.json(); });
+    };
+    CompareTeamService.prototype.compareTeams = function (team1, team2, year) {
+        console.log('Compare Teams');
+        return this.http.get('/teamcmp/compareteams' + team1 + '/' + team2 + '/' + year)
             .map(function (res) { return res.json(); });
     };
     CompareTeamService = __decorate([

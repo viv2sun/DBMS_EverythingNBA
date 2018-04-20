@@ -21,8 +21,8 @@ export class AppComponent {
     this.map['View Player'] = 'viewPlayer';
     this.map['Compare Teams'] = 'compareTeam';
 
-    this.selectedFeature = "viewPlayer";
-    //this.selectedFeature = "compareTeam";
+    //this.selectedFeature = "viewPlayer";
+    this.selectedFeature = "compareTeam";
   }
 
   setFeature(event){

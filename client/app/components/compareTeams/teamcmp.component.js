@@ -10,20 +10,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var teamcmp_service_1 = require('../../services/teamcmp.service');
+require('rxjs/add/operator/toPromise');
 var CompareTeamsComponent = (function () {
     function CompareTeamsComponent(compareTeamService) {
-        var _this = this;
         this.compareTeamService = compareTeamService;
         this.map = {};
+    }
+    CompareTeamsComponent.prototype.getTeams = function () {
+        var _this = this;
         this.compareTeamService.getTeams()
-            .subscribe(function (teamAndYear) {
+            .toPromise()
+            .then(function (teamAndYear) {
             console.log("Inside Subscribe");
             console.log(teamAndYear);
             _this.years = teamAndYear.years;
             _this.teams = teamAndYear.teams;
-            console.log(_this.teams[10]);
+            _this.dataLoaded = true;
         });
-    }
+    };
+    CompareTeamsComponent.prototype.compare = function (event, team1, team2, year) {
+        console.log(team1);
+        console.log(team2);
+        console.log(year);
+        event.preventDefault();
+        this.compareTeamService.compareTeams(team1, team2, year)
+            .subscribe(function (data) {
+            console.log(data);
+            //this.data = data;
+        });
+    };
+    CompareTeamsComponent.prototype.ngOnInit = function () {
+        this.dataLoaded = false;
+        this.getTeams();
+    };
     CompareTeamsComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

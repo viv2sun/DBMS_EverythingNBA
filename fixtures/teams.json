@@ -1,0 +1,122 @@
+[
+  {
+    "TEAM_ID": "ATL",
+    "NAME": "Atlanta Hawks"
+  },
+  {
+    "TEAM_ID": "BOS",
+    "NAME": "Boston Celtics"
+  },
+  {
+    "TEAM_ID": "BKN",
+    "NAME": "Brooklyn Nets"
+  },
+  {
+    "TEAM_ID": "CHA",
+    "NAME": "Charlotte Hornets"
+  },
+  {
+    "TEAM_ID": "CHI",
+    "NAME": "Chicago Bulls"
+  },
+  {
+    "TEAM_ID": "CLE",
+    "NAME": "Cleveland Cavaliers"
+  },
+  {
+    "TEAM_ID": "DAL",
+    "NAME": "Dallas Mavericks"
+  },
+  {
+    "TEAM_ID": "DEN",
+    "NAME": "Denver Nuggets"
+  },
+  {
+    "TEAM_ID": "DET",
+    "NAME": "Detroit Pistons"
+  },
+  {
+    "TEAM_ID": "GSW",
+    "NAME": "Golden State Warriors"
+  },
+  {
+    "TEAM_ID": "HOU",
+    "NAME": "Houston Rockets"
+  },
+  {
+    "TEAM_ID": "IND",
+    "NAME": "Indiana Pacers"
+  },
+  {
+    "TEAM_ID": "LAC",
+    "NAME": "Los Angeles Clippers"
+  },
+  {
+    "TEAM_ID": "LAL",
+    "NAME": "Los Angeles Lakers"
+  },
+  {
+    "TEAM_ID": "MEM",
+    "NAME": "Memphis Grizzlies"
+  },
+  {
+    "TEAM_ID": "MIA",
+    "NAME": "Miami Heat"
+  },
+  {
+    "TEAM_ID": "MIL",
+    "NAME": "Milwaukee Bucks"
+  },
+  {
+    "TEAM_ID": "MIN",
+    "NAME": "Minnesota Timberwolves"
+  },
+  {
+    "TEAM_ID": "NOP",
+    "NAME": "New Orleans Pelicans"
+  },
+  {
+    "TEAM_ID": "NYK",
+    "NAME": "New York Knicks"
+  },
+  {
+    "TEAM_ID": "OKC",
+    "NAME": "Oklahoma City Thunder"
+  },
+  {
+    "TEAM_ID": "ORL",
+    "NAME": "Orlando Magic"
+  },
+  {
+    "TEAM_ID": "PHI",
+    "NAME": "Philadelphia 76ers"
+  },
+  {
+    "TEAM_ID": "PHX",
+    "NAME": "Phoenix Suns"
+  },
+  {
+    "TEAM_ID": "POR",
+    "NAME": "Portland Trail Blazers"
+  },
+  {
+    "TEAM_ID": "SAC",
+    "NAME": "Sacramento Kings"
+  },
+  {
+    "TEAM_ID": "SAS",
+    "NAME": "San Antonio Spurs"
+  },
+  {
+    "TEAM_ID": "TOR",
+    "NAME": "Toronto Raptors"
+  },
+  {
+    "TEAM_ID": "UTA",
+    "NAME": "Utah Jazz"
+  },
+  {
+    "TEAM_ID": "WAS",
+    "NAME": "Washington Wizards"
+  }
+]
