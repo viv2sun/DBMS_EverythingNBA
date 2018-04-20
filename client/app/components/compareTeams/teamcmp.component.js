@@ -29,14 +29,17 @@ var CompareTeamsComponent = (function () {
         });
     };
     CompareTeamsComponent.prototype.compare = function (event, team1, team2, year) {
+        var _this = this;
         console.log(team1);
         console.log(team2);
         console.log(year);
         event.preventDefault();
         this.compareTeamService.compareTeams(team1, team2, year)
-            .subscribe(function (data) {
+            .toPromise()
+            .then(function (data) {
+            console.log("Hello");
             console.log(data);
-            //this.data = data;
+            _this.data = data;
         });
     };
     CompareTeamsComponent.prototype.ngOnInit = function () {

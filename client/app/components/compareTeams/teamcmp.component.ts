@@ -14,7 +14,7 @@ export class CompareTeamsComponent implements OnInit {
     years : number[];
     teams : TeamItem[];
     dataLoaded : boolean;
-    data : String[];
+    data : Object;
 
     map = {};
     constructor(private compareTeamService:CompareTeamService){
@@ -39,10 +39,12 @@ export class CompareTeamsComponent implements OnInit {
         console.log(year);
         event.preventDefault();
         this.compareTeamService.compareTeams(team1, team2, year)
-            .subscribe(data => {
-                console.log(data);
-                //this.data = data;
-            });
+          .toPromise()
+          .then(data => {
+                  console.log("Hello");
+                  console.log(data);
+                  this.data = data;
+          });
 
     }
 
