@@ -14,7 +14,6 @@ export class CompareTeamService{
     }
 
     compareTeams(team1, team2, year){
-        console.log('Compare Teams');
         return this.http.get('/teamcmp/compareteams'+team1+'/'+team2+'/'+year)
             .map(res => res.json());
     }

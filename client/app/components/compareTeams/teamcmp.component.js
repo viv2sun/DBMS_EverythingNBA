@@ -14,15 +14,34 @@ require('rxjs/add/operator/toPromise');
 var CompareTeamsComponent = (function () {
     function CompareTeamsComponent(compareTeamService) {
         this.compareTeamService = compareTeamService;
+        this.objectKeys = Object.keys;
         this.map = {};
+        this.h2hmap = {};
+        // HEAD TO HEAD Fields
+        this.h2hmap['GAMES_PLAYED'] = 'Games Played';
+        this.h2hmap['TOTAL_POINTS'] = 'Total Points';
+        this.h2hmap['TOTAL_WINS'] = 'Total Wins';
+        this.h2hmap['PLAYOFF_WINS'] = 'Playoff Wins';
+        // Team Stats Fields
+        this.map['GAMES_PLAYED'] = 'Games Played';
+        this.map['DIV_RANK'] = 'Division Rank';
+        this.map['CONF_RANK'] = 'Conference Rank';
+        this.map['HOME_WIN'] = 'Home Wins';
+        this.map['HOME_LOSS'] = 'Home Losses';
+        this.map['AWAY_WIN'] = 'Away Wins';
+        this.map['AWAY_LOSS'] = 'Away Losses';
+        this.map['POINTS'] = 'Points';
+        this.map['ASSISTS'] = 'Assists';
+        this.map['STEALS'] = 'Steals';
+        this.map['BLOCKS'] = 'Blocks';
+        this.map['THREES'] = 'Threes Made';
+        this.map['REBOUNDS'] = 'Rebounds';
     }
     CompareTeamsComponent.prototype.getTeams = function () {
         var _this = this;
         this.compareTeamService.getTeams()
             .toPromise()
             .then(function (teamAndYear) {
-            console.log("Inside Subscribe");
-            console.log(teamAndYear);
             _this.years = teamAndYear.years;
             _this.teams = teamAndYear.teams;
             _this.dataLoaded = true;
@@ -30,16 +49,21 @@ var CompareTeamsComponent = (function () {
     };
     CompareTeamsComponent.prototype.compare = function (event, team1, team2, year) {
         var _this = this;
-        console.log(team1);
-        console.log(team2);
-        console.log(year);
+        console.log("Compare Team " + team1 + " " + team2 + " " + year);
         event.preventDefault();
         this.compareTeamService.compareTeams(team1, team2, year)
             .toPromise()
             .then(function (data) {
-            console.log("Hello");
             console.log(data);
             _this.data = data;
+            _this.team1Data = data[team1];
+            _this.team2Data = data[team2];
+            _this.team1Squad = _this.team1Data['squad'];
+            _this.team2Squad = _this.team2Data['squad'];
+            console.log(_this.team1Data);
+            console.log(_this.team2Data);
+            console.log(_this.team1Squad);
+            console.log(_this.team2Squad);
         });
     };
     CompareTeamsComponent.prototype.ngOnInit = function () {

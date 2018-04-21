@@ -50,7 +50,6 @@ var PlayersComponent = (function () {
         event.preventDefault();
         this.playerService.searchPlayer(name)
             .subscribe(function (players) {
-            console.log(players);
             _this.players = players;
         });
     };

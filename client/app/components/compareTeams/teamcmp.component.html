@@ -1,47 +1,112 @@
 <div *ngIf="dataLoaded" class="container">
         <h1>Compare Teams</h1>
         <div class="row">
-        <div class="col-md-4" style="width: 30%">
-                <div>
-                        <form class="well">
-                                <label> Team 1</label>
-                                <select class="form-control" name="sel" [(ngModel)]="team1">
-                                        <option *ngFor="let team of teams" [ngValue]="team">
-                                                {{team.NAME}}
-                                        </option>
-                                </select>
+                <div class="col-md-4" style="width: 30%">
+                        <div>
+                                <form class="well">
+                                        <label> Team 1</label>
+                                        <select class="form-control" name="sel" [(ngModel)]="team1">
+                                                <option *ngFor="let team of teams" [ngValue]="team">
+                                                        {{team.NAME}}
+                                                </option>
+                                        </select>
+                                </form>
+                        </div>
+                </div>
+                <div class="col-sm-4" style="width: 30%">
+                        <div>
+                                <form class="well">
+                                        <label> Team 2</label>
+                                        <select class="form-control" name="sel" [(ngModel)]="team2">
+                                                <option *ngFor="let team of teams" [ngValue]="team">
+                                                        {{team.NAME}}
+                                                </option>
+                                        </select>
+                                </form>
+                        </div>
+                </div>
+                <div class="col-md-2">
+                        <div>
+                                <form class="well">
+                                        <label> Year</label>
+                                        <select class="form-control" name="sel" [(ngModel)]="year">
+                                                <option *ngFor="let year of years" [ngValue]="year">
+                                                        {{year}}
+                                                </option>
+                                        </select>
+                                </form>
+                        </div>
+                </div>
+                <div class="col-md-2" style="margin-top: 35">
+                        <input type="button" (click)="compare($event, team1.TEAM_ID, team2.TEAM_ID, year)" value="Compare" class="form-control btn btn-primary btn-lg">
+                </div>
+        </div>
+        <div class="row" *ngIf="team1Data">
+                <div class="col-md-8" style="width: 60%;">
+                        <div class="row" style="margin-bottom: 20px;">
+                                <span class="label label-info" style="font-size: 18px; margin-left: 15px;">Squad</span>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-6" style="width: 45%;">
+                                        <div>
+                                                <label style="font-size: 18px;">{{team1Data.TEAM}}</label>
+                                                <ul class="list-inline" style="margin-top: 12px;">
+                                                        <li *ngFor="let squad of team1Squad" style="font-size: 15px;">
+                                                                <span>{{squad.PLAYER_NAME}}</span>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </div>
+                                <div class="col-md-6" style="width: 45%">
+                                        <div>
+                                                <label style="font-size: 18px;">{{team2Data.TEAM}}</label>
+                                                <ul class="list-inline" style="margin-top: 12px;">
+                                                        <li *ngFor="let squad of team2Squad" style="font-size: 15px;">
+                                                                <span>{{squad.PLAYER_NAME}}</span>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <div class="col-md-4" style="width: 35%">
+                        <form>
+                                <span class="label label-info" style="font-size: 18px;">Head to Head</span>
+                                <table class="table" style="margin-top: 12px;">
+                                        <tr>
+                                                <th></th>
+                                                <th>{{team1Data.TEAM}}</th>
+                                                <th>{{team2Data.TEAM}}</th>
+                                        </tr>
+                                        <tr *ngFor="let key of objectKeys(team1Data.head_to_head)">
+                                                <td *ngIf="h2hmap[key]">{{h2hmap[key]}}</td>
+                                                <td *ngIf="h2hmap[key]">{{team1Data.head_to_head[key]}}</td>
+                                                <td *ngIf="h2hmap[key]">{{team2Data.head_to_head[key]}}</td>
+                                        </tr>
+                                </table>
                         </form>
                 </div>
         </div>
-        <div class="col-sm-4" style="width: 30%">
-                <div>
-                        <form class="well">
-                                <label> Team 2</label>
-                                <select class="form-control" name="sel" [(ngModel)]="team2">
-                                        <option *ngFor="let team of teams" [ngValue]="team">
-                                                {{team.NAME}}
-                                        </option>
-                                </select>
+
+
+        <div class="row" *ngIf="team1Data" style="margin-top: 5%;"> 
+                <div class="col-md-8" style="width: 70%; margin-left: 10%;">
+                        <form>
+                                <span class="label label-info" style="font-size: 22px;">Statistics</span>
+                                <table class="table" style="margin-top: 14px; font-size: 20px;">
+                                        <tr>
+                                                <th></th>
+                                                <th>{{team1Data.TEAM}}</th>
+                                                <th>{{team2Data.TEAM}}</th>
+                                        </tr>
+                                        <tr *ngFor="let key of objectKeys(team1Data)">
+                                                <td *ngIf="map[key]">{{map[key]}}</td>
+                                                <td *ngIf="map[key]">{{team1Data[key]}}</td>
+                                                <td *ngIf="map[key]">{{team2Data[key]}}</td>
+                                        </tr>
+                                </table>
                         </form>
                 </div>
         </div>
-        <div class="col-md-2">
-                <div>
-                        <form class="well">
-                                <label> Year</label>
-                                <select class="form-control" name="sel" [(ngModel)]="year">
-                                        <option *ngFor="let year of years" [ngValue]="year">
-                                                {{year}}
-                                        </option>
-                                </select>
-                        </form>
-                </div>
-        </div>
-        <div class="col-md-2" style="margin-top: 35">
-                <input type="button" (click)="compare($event, team1.TEAM_ID, team2.TEAM_ID, year)" value="Compare" class="form-control btn btn-primary btn-lg">
-        </div>
-        </div>
-        <div class="row">
-                {{data}}
-        </div>
+
 </div>

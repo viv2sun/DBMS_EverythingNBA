@@ -21,7 +21,6 @@ var CompareTeamService = (function () {
             .map(function (res) { return res.json(); });
     };
     CompareTeamService.prototype.compareTeams = function (team1, team2, year) {
-        console.log('Compare Teams');
         return this.http.get('/teamcmp/compareteams' + team1 + '/' + team2 + '/' + year)
             .map(function (res) { return res.json(); });
     };

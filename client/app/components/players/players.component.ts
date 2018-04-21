@@ -51,7 +51,6 @@ export class PlayersComponent {
         event.preventDefault();
         this.playerService.searchPlayer(name)
             .subscribe(players => {
-                console.log(players);
                 this.players = players;
             });
     }

@@ -24,7 +24,6 @@ var AppComponent = (function () {
     AppComponent.prototype.setFeature = function (event) {
         event.preventDefault();
         this.selectedPageName = event.srcElement.innerHTML;
-        console.log(this.map[this.selectedPageName]);
         if (this.selectedFeature != this.map[this.selectedPageName]) {
             this.selectedFeature = this.map[this.selectedPageName];
         }
