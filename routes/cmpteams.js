@@ -14,7 +14,7 @@ var fs = require("fs");
 // var jsonContent = JSON.parse(content);
 
 router.get('/teams', function(req, res, next){
-    console.log("Node JS: Team and Year dropdown API" );
+    console.log("Node JS: Team and Year dropdown API - Compare Teams" );
     getTeams(res);    
 });
 

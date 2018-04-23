@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import {TaskService} from './services/task.service';
 import { PlayerService } from './services/player.service';
 import { CompareTeamService } from './services/teamcmp.service';
+import { TeamService } from './services/team.service';
 
 @Component({
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: 'app.component.html',
-  providers:[TaskService, PlayerService, CompareTeamService]
+  providers:[TaskService, PlayerService, CompareTeamService, TeamService]
 })
 
 export class AppComponent { 
@@ -20,9 +21,11 @@ export class AppComponent {
 
     this.map['View Player'] = 'viewPlayer';
     this.map['Compare Teams'] = 'compareTeam';
+    this.map['View Squad'] = 'viewSquad';
 
     //this.selectedFeature = "viewPlayer";
-    this.selectedFeature = "compareTeam";
+    //this.selectedFeature = "compareTeam";
+    this.selectedFeature = "viewSquad";
   }
 
   setFeature(event){

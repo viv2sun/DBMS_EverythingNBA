@@ -6,6 +6,7 @@ var index = require('./routes/index');
 var tasks = require('./routes/tasks');
 var players = require('./routes/players');
 var cmpteams = require('./routes/cmpteams');
+var teams = require('./routes/teams');
 
 var port = 8001;
 
@@ -27,6 +28,8 @@ app.use('/', index);
 app.use('/api', tasks);
 app.use('/feature', players);
 app.use('/teamcmp', cmpteams);
+app.use('/teams', teams);
+
 
 app.listen(port, function(){
     console.log('Server started on port '+port);

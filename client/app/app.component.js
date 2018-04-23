@@ -12,14 +12,17 @@ var core_1 = require('@angular/core');
 var task_service_1 = require('./services/task.service');
 var player_service_1 = require('./services/player.service');
 var teamcmp_service_1 = require('./services/teamcmp.service');
+var team_service_1 = require('./services/team.service');
 var AppComponent = (function () {
     function AppComponent() {
         // Map Page Names to pageSelectors
         this.map = {};
         this.map['View Player'] = 'viewPlayer';
         this.map['Compare Teams'] = 'compareTeam';
+        this.map['View Squad'] = 'viewSquad';
         //this.selectedFeature = "viewPlayer";
-        this.selectedFeature = "compareTeam";
+        //this.selectedFeature = "compareTeam";
+        this.selectedFeature = "viewSquad";
     }
     AppComponent.prototype.setFeature = function (event) {
         event.preventDefault();
@@ -39,7 +42,7 @@ var AppComponent = (function () {
             moduleId: module.id,
             selector: 'my-app',
             templateUrl: 'app.component.html',
-            providers: [task_service_1.TaskService, player_service_1.PlayerService, teamcmp_service_1.CompareTeamService]
+            providers: [task_service_1.TaskService, player_service_1.PlayerService, teamcmp_service_1.CompareTeamService, team_service_1.TeamService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

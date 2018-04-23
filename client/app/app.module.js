@@ -16,6 +16,7 @@ var app_component_1 = require('./app.component');
 var tasks_component_1 = require('./components/tasks/tasks.component');
 var players_component_1 = require('./components/players/players.component');
 var teamcmp_component_1 = require('./components/compareTeams/teamcmp.component');
+var teams_component_1 = require('./components/teams/teams.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -26,7 +27,8 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 tasks_component_1.TasksComponent,
                 players_component_1.PlayersComponent,
-                teamcmp_component_1.CompareTeamsComponent
+                teamcmp_component_1.CompareTeamsComponent,
+                teams_component_1.TeamComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

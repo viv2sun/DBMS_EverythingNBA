@@ -11,7 +11,7 @@ const config = {
 
 var fs = require("fs");
 
-router.get('/team/view:tname/:tyear', function(req, res, next){
+router.get('/view:tname/:tyear', function(req, res, next){
     console.log("Node JS: Seach Team API" );
     console.log(req.body);
     console.log(req.params.tname);
@@ -24,9 +24,8 @@ router.get('/team/view:tname/:tyear', function(req, res, next){
 });
 
 
-router.get('/team/getteams', function(req, res, next){
-    console.log("Node JS: Team and Year dropdown API" );
-
+router.get('/getteamlist', function(req, res, next){
+    console.log("Node JS: Team and Year dropdown API - Teams" );
     getTeams(res);    
 });
 
@@ -64,7 +63,7 @@ function getYear(teamAndYear, connection, res) {
             teamAndYear.years = yearArr;
 
             console.log(teamAndYear);
-            //res.json(teamAndYear);
+            res.json(teamAndYear);
 
             connection.close(function(err){
                 if(err){
@@ -122,6 +121,7 @@ function getTeamSquad(teamDetails, teamName, teamYear, connection, res) {
 
             teamDetails.squad = result.rows;
             
+            console.log(teamDetails);
             res.json(teamDetails);
 
             connection.close(function(err){
@@ -136,5 +136,5 @@ function getTeamSquad(teamDetails, teamName, teamYear, connection, res) {
 }
 
 //getTeamDetails({}, 'BOS', 2000, null);
-getTeams(null);
+//getTeams(null);
 module.exports = router;
