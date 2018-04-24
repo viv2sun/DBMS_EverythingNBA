@@ -7,6 +7,7 @@ var tasks = require('./routes/tasks');
 var players = require('./routes/players');
 var cmpteams = require('./routes/cmpteams');
 var teams = require('./routes/teams');
+var lboard = require('./routes/leaderboard');
 
 var port = 8001;
 
@@ -29,6 +30,7 @@ app.use('/api', tasks);
 app.use('/feature', players);
 app.use('/teamcmp', cmpteams);
 app.use('/teams', teams);
+app.use('/leaderboard', lboard);
 
 
 app.listen(port, function(){

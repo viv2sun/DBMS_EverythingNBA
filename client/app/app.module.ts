@@ -7,6 +7,7 @@ import {TasksComponent} from './components/tasks/tasks.component';
 import { PlayersComponent } from './components/players/players.component';
 import { CompareTeamsComponent } from './components/compareTeams/teamcmp.component';
 import { TeamComponent } from './components/teams/teams.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, FormsModule ],
@@ -15,7 +16,8 @@ import { TeamComponent } from './components/teams/teams.component';
                   TasksComponent, 
                   PlayersComponent,
                   CompareTeamsComponent,
-                  TeamComponent
+                  TeamComponent,
+                  LeaderboardComponent
                 ],
   bootstrap: [AppComponent]
 })
