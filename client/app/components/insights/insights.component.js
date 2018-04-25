@@ -45,26 +45,13 @@ var InsightsComponent = (function () {
             }, {
                 "code": "freethrows",
                 "name": "Free Throws"
+            }, {
+                "code": "weight",
+                "name": "Weight (inches)"
+            }, {
+                "code": "height",
+                "name": "Height (lbs))"
             }];
-        //   // HEAD TO HEAD Fields
-        //   this.h2hmap['GAMES_PLAYED'] = 'Games Played';
-        //   this.h2hmap['TOTAL_POINTS'] = 'Total Points';
-        //   this.h2hmap['TOTAL_WINS'] = 'Total Wins';
-        //   this.h2hmap['PLAYOFF_WINS'] = 'Playoff Wins';
-        //   // Team Stats Fields
-        //   this.map['GAMES_PLAYED'] = 'Games Played';
-        //   this.map['DIV_RANK'] = 'Division Rank';
-        //   this.map['CONF_RANK'] = 'Conference Rank';
-        //   this.map['HOME_WIN'] = 'Home Wins';
-        //   this.map['HOME_LOSS'] = 'Home Losses';
-        //   this.map['AWAY_WIN'] = 'Away Wins';
-        //   this.map['AWAY_LOSS'] = 'Away Losses';
-        //   this.map['POINTS'] = 'Points';
-        //   this.map['ASSISTS'] = 'Assists';
-        //   this.map['STEALS'] = 'Steals';
-        //   this.map['BLOCKS'] = 'Blocks';
-        //   this.map['THREES'] = 'Threes Made';
-        //   this.map['REBOUNDS'] = 'Rebounds';
     }
     InsightsComponent.prototype.getTeams = function () {
         var _this = this;

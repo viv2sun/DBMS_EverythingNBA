@@ -6,7 +6,7 @@
                 entered, select "Apply Filters"</p>
         </div>
         <div class="row" style="margin-left: 1%; margin-top: 2%;">
-            <div class="col-md-8" style="width: 50%" style="margin-left: 1%;">
+            <div class="col-md-7" style="width: 45%" style="margin-left: 1%;">
                 <form>
                     <span class="label label-info" style="font-size: 18px; margin-top: 2%;">Attribute Filters</span>
                     <table class="table squadtable" style="margin-top: 5%;">
@@ -83,7 +83,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <label>Height</label>
+                                <label>Height (inches)</label>
                             </td>
                             <td>
                                 <input type="number" [(ngModel)]="attributes.heightmin" class="form-control" name="heightmin">
@@ -94,7 +94,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <label>Weight</label>
+                                <label>Weight (lbs)</label>
                             </td>
                             <td>
                                 <input type="number" [(ngModel)]="attributes.weightmin" class="form-control" name="weightmin">
@@ -106,8 +106,8 @@
                     </table>
                 </form>
             </div>
-            <div class="col-md-2" style="width: 20%;margin-left: 2%; border: 2px solid #2f9fc1; border-radius:5%; padding-left: 1%; padding-right: 1%;">
-                <div style="margin: 8%;">
+            <div class="col-md-4" style="width: 30%; margin-left: 2%; margin-top: 10%; border: 2px solid #2f9fc1; border-radius:5%; padding-left: 1%; padding-right: 1%;">
+                <div style="margin: 6%;">
                     <!-- <form class="well" style="padding: 10px;"> -->
                     <span class="label label-info" style="font-size: 18px; margin-top: 5%; display:inherit;">Display Filter</span>
                     <select class="form-control" name="sel" [(ngModel)]="selectedFilter" (ngModelChange)="onChangeFilter(selectedFilter)" style="margin-top: 10%;margin-bottom: 10%;">
@@ -117,15 +117,15 @@
                     </select>
                     <ul class="list-unstyled">
                         <li style="font-size: 15px;margin-top: 10%;">
-                            <span>Min :</span>
-                            <span style="margin-left: 10%;" *ngIf="filterValue.min || filterValue.min == 0">{{filterValue.min}}</span>
+                            <span>Minimum :</span>
+                            <span style="margin-left: 10%; color: #1e24d8;" *ngIf="filterValue.min || filterValue.min == 0">{{filterValue.min}} ({{filterValue.min_player}})</span>
                         </li>
                         <li style="font-size: 15px;margin-top: 10%;">
-                            <span>Max :</span>
-                            <span style="margin-left: 10%;" *ngIf="filterValue.max || filterValue.max == 0">{{filterValue.max}}</span>
+                            <span>Maximum :</span>
+                            <span style="margin-left: 10%; color: #b72d17;" *ngIf="filterValue.max || filterValue.max == 0">{{filterValue.max}} ({{filterValue.max_player}})</span>
                         </li>
                         <li style="font-size: 15px;margin-top: 10%;">
-                            <span>Avg :</span>
+                            <span>Average :</span>
                             <span style="margin-left: 10%;" *ngIf="filterValue.avg || filterValue.avg == 0">{{filterValue.avg}}</span>
                         </li>
                     </ul>
