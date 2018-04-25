@@ -18,7 +18,8 @@ router.get('/getinsights:tname/:fromYear/:toYear/:pos/:attributes', function(req
     console.log(req.params.tname);
     var teamName = req.params.tname;
     var pos =  req.params.pos;
-    var attributeJson = req.params.attributes;
+    var attributeStr = req.params.attributes;
+    var attributeJson = JSON.parse(attributeStr);
 
     console.log(attributeJson);
 

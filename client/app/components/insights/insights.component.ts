@@ -112,8 +112,10 @@ export class InsightsComponent implements OnInit {
       };
 
       console.log(this.attributeObj);
+      var attributeStr = JSON.stringify(this.attributeObj);
+      console.log(attributeStr);
       event.preventDefault();
-      this.insightsService.getInsights(team, fromYear, toYear, pos, this.attributeObj)
+      this.insightsService.getInsights(team, fromYear, toYear, pos, attributeStr)
           .toPromise()
           .then(data => {
                   console.log(data);

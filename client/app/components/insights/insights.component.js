@@ -101,8 +101,10 @@ var InsightsComponent = (function () {
             }
         };
         console.log(this.attributeObj);
+        var attributeStr = JSON.stringify(this.attributeObj);
+        console.log(attributeStr);
         event.preventDefault();
-        this.insightsService.getInsights(team, fromYear, toYear, pos, this.attributeObj)
+        this.insightsService.getInsights(team, fromYear, toYear, pos, attributeStr)
             .toPromise()
             .then(function (data) {
             console.log(data);
