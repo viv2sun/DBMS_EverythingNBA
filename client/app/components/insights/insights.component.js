@@ -23,6 +23,29 @@ var InsightsComponent = (function () {
         this.objectKeys = Object.keys;
         this.positions = ['All', 'F', 'G', 'C'];
         this.attributes = {};
+        this.filterValue = {};
+        this.displayFilters = [{
+                "code": "assists",
+                "name": "Assists"
+            }, {
+                "code": "points",
+                "name": "Points"
+            }, {
+                "code": "blocks",
+                "name": "Blocks"
+            }, {
+                "code": "rebounds",
+                "name": "Rebounds"
+            }, {
+                "code": "steals",
+                "name": "Steals"
+            }, {
+                "code": "threes",
+                "name": "Threes"
+            }, {
+                "code": "freethrows",
+                "name": "Free Throws"
+            }];
         //   // HEAD TO HEAD Fields
         //   this.h2hmap['GAMES_PLAYED'] = 'Games Played';
         //   this.h2hmap['TOTAL_POINTS'] = 'Total Points';
@@ -102,33 +125,28 @@ var InsightsComponent = (function () {
         };
         console.log(this.attributeObj);
         var attributeStr = JSON.stringify(this.attributeObj);
-        console.log(attributeStr);
         event.preventDefault();
         this.insightsService.getInsights(team, fromYear, toYear, pos, attributeStr)
             .toPromise()
             .then(function (data) {
             console.log(data);
             _this.data = data;
+            if (_this.chosenDF) {
+                var val = _this.chosenDF['val'];
+                _this.filterValue = _this.data[val];
+            }
         });
     };
-    // compare(event, team1, team2, year){
-    //     console.log("Compare Team " + team1 + " " + team2 + " " + year);
-    //     event.preventDefault();
-    //     this.insightsService.compareTeams(team1, team2, year)
-    //       .toPromise()
-    //       .then(data => {
-    //               console.log(data);
-    //               this.data = data;
-    //               this.team1Data = data[team1];
-    //               this.team2Data = data[team2];
-    //               this.team1Squad = this.team1Data['squad'];
-    //               this.team2Squad = this.team2Data['squad'];
-    //               console.log(this.team1Data);
-    //               console.log(this.team2Data);
-    //               console.log(this.team1Squad);
-    //               console.log(this.team2Squad);
-    //       });
-    // }
+    InsightsComponent.prototype.onChangeFilter = function (value) {
+        console.log(value);
+        console.log(this.data);
+        this.chosenDF = {
+            val: value
+        };
+        if (this.data) {
+            this.filterValue = this.data[value];
+        }
+    };
     InsightsComponent.prototype.ngOnInit = function () {
         this.dataLoaded = false;
         this.getTeams();

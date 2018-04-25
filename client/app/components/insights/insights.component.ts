@@ -17,6 +17,9 @@ export class InsightsComponent implements OnInit {
     positions: String[];
     attributes: Object;
     attributeObj : Object;
+    displayFilters : Object[];
+    chosenDF : Object;
+    filterValue : Object;
     data : Object;
     objectKeys = Object.keys;
 
@@ -32,6 +35,30 @@ export class InsightsComponent implements OnInit {
       
       this.positions = ['All', 'F', 'G', 'C'];
       this.attributes = {};
+      this.filterValue = {};
+
+      this.displayFilters = [{
+        "code": "assists",
+        "name": "Assists"
+      }, {
+        "code": "points",
+        "name": "Points"
+      }, {
+        "code": "blocks",
+        "name": "Blocks"
+      }, {
+        "code": "rebounds",
+        "name": "Rebounds"
+      }, {
+        "code" : "steals",
+        "name" : "Steals"
+      }, {
+        "code" : "threes",
+        "name" : "Threes"
+      }, {
+        "code" : "freethrows",
+        "name" : "Free Throws"
+      }];
     //   // HEAD TO HEAD Fields
     //   this.h2hmap['GAMES_PLAYED'] = 'Games Played';
     //   this.h2hmap['TOTAL_POINTS'] = 'Total Points';
@@ -113,34 +140,29 @@ export class InsightsComponent implements OnInit {
 
       console.log(this.attributeObj);
       var attributeStr = JSON.stringify(this.attributeObj);
-      console.log(attributeStr);
       event.preventDefault();
       this.insightsService.getInsights(team, fromYear, toYear, pos, attributeStr)
           .toPromise()
           .then(data => {
                   console.log(data);
                   this.data = data;
+                  if(this.chosenDF){
+                    var val = this.chosenDF['val'];
+                    this.filterValue = this.data[val];
+                  }
           });
     }
-    // compare(event, team1, team2, year){
-    //     console.log("Compare Team " + team1 + " " + team2 + " " + year);
-    //     event.preventDefault();
-    //     this.insightsService.compareTeams(team1, team2, year)
-    //       .toPromise()
-    //       .then(data => {
-    //               console.log(data);
-    //               this.data = data;
-    //               this.team1Data = data[team1];
-    //               this.team2Data = data[team2];
-    //               this.team1Squad = this.team1Data['squad'];
-    //               this.team2Squad = this.team2Data['squad'];
-    //               console.log(this.team1Data);
-    //               console.log(this.team2Data);
-    //               console.log(this.team1Squad);
-    //               console.log(this.team2Squad);
-    //       });
 
-    // }
+    onChangeFilter(value){
+      console.log(value);
+      console.log(this.data);
+      this.chosenDF = {
+        val : value
+      };
+      if(this.data){
+        this.filterValue = this.data[value];
+      }
+    }
 
     ngOnInit() {
       this.dataLoaded = false;
