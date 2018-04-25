@@ -104,7 +104,7 @@ function getStats(teamName, fromYear, toYear, pos, attributeJson, res) {
             whereClause.height = heightClause;
             whereClause.weight = weightClause;
 
-            var query = "select min(pts) pts_min, max(pts) pts_max, avg(pts) pts_avg,\
+            var query = "select count(pid) count, min(pts) pts_min, max(pts) pts_max, avg(pts) pts_avg,\
                             min(ast) ast_min, max(ast) ast_max, avg(ast) ast_avg,\
                             min(stl) stl_min, max(stl) stl_max, avg(stl) stl_avg,\
                             min(blk) blk_min, max(blk) blk_max, avg(blk) blk_avg,\
@@ -181,6 +181,8 @@ function getStats(teamName, fromYear, toYear, pos, attributeJson, res) {
                 stats.weight.min = result.rows[0].W_MIN;
                 stats.weight.max = result.rows[0].W_MAX;
                 stats.weight.avg = parseInt(result.rows[0].W_AVG, 10);
+
+                stats.count = result.rows[0].COUNT;
 
                 console.log(stats);
                 
