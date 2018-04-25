@@ -17,36 +17,25 @@ router.get('/getinsights:tname/:fromYear/:toYear/:pos/:attributes', function(req
     console.log(req.params);
     console.log(req.params.tname);
     var teamName = req.params.tname;
+    var fromYear = req.params.fromYear;
+    var toYear = req.params.toYear;
     var pos =  req.params.pos;
     var attributeStr = req.params.attributes;
     var attributeJson = JSON.parse(attributeStr);
 
     console.log(attributeJson);
 
-    // var attributeJson = {
-    //     'assists' : {
-    //         'set' : true,
-    //         'min' : 1000,
-    //         'max' : 2000
-    //     },
-    //     'points' : {
-    //         'set' : true,
-    //         'min' : 10000,
-    //         'max' : 20000
-    //     }
-    // };
-
-    getStats(teamName, pos, attributeJson, res);
+    getStats(teamName, fromYear, toYear, pos, attributeJson, res);
 
 });
 
-function getStats(teamName, pos, attributeJson, res) {
+function getStats(teamName, fromYear, toYear, pos, attributeJson, res) {
   
     oracledb.getConnection(config, function(err, connection){
         if (err) 
         { 
             console.log(err.message); 
-            //res.send(err.message); 
+            res.send(err.message); 
         }
         else {
             console.log("Connection Established....");
@@ -96,13 +85,13 @@ function getStats(teamName, pos, attributeJson, res) {
 
             var yearClause = "";
 
-            if(attributeJson.years != null && attributeJson.years.set == true) {
-                yearClause += " and ps.year between " + attributeJson.years.min + " and " + attributeJson.years.max;
+            if(fromYear != 'undefined' && toYear != 'undefined') {
+                yearClause += " and ps.year between " + fromYear + " and " + toYear;
             }
 
 
             var posClause = "";
-            if(pos != 'ALL') {
+            if(pos != 'undefined') {
                 posClause = " and p.postion like '%" + pos + "%' ";
             }
 
@@ -180,7 +169,7 @@ function getStats(teamName, pos, attributeJson, res) {
                 connection.close(function(err){
                     if(err){
                         console.log(err.message); 
-                        //res.send(err.message); 
+                        res.send(err.message); 
                     }
                     console.log("Connection Closed....");
                 });   
