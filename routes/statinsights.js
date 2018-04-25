@@ -741,8 +741,10 @@ function getTeams(res) {
             console.log("Connection Established....");
             teamAndYear = {};
             connection.execute(
-            "select team_id, name from team\
-            order by team_id", function(err, result){
+            "select ts.team team_id, (t.name || ' (' || min(ts.year) || '-' || max(ts.year) || ')') name\
+                from team_stats ts, team t\
+                where t.team_id = ts.team\
+                group by ts.team, t.name", function(err, result){
                 teamAndYear.teams = result.rows;
                 getYear(teamAndYear, connection, res);   
             });
