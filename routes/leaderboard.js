@@ -82,6 +82,8 @@ function getRookies(teamName, year, pos, stats, noOfRecords, res) {
                 posClause = " and p.position like '%" + pos + "%' ";
             }
 
+            var rowNumClause = " and rownum <= " + noOfRecords;
+
             var query = "select (p.last_name || ',' || p.first_name) pname, players.points, players.assists,\
             players.steals, players.blocks, players.threes, players.rebounds, players.games_played, players.minutes_played\
             from   (select  pstats.Player pid, pstats.Pts points, (pstats.AST) assists, (pstats.STL) steals, (pstats.BLK) blocks,\
@@ -96,12 +98,11 @@ function getRookies(teamName, year, pos, stats, noOfRecords, res) {
                         "and pstats.year = :year\
                         order by " + statsClause + " desc) players,\
                     player p\
-            where p.player_id = players.pid " + posClause +
-                " and rownum <= :noOfRecords";
+            where p.player_id = players.pid " + posClause + rowNumClause;
 
             console.log(query);
             
-            connection.execute(query, [year, noOfRecords], function(err, result){
+            connection.execute(query, [year], function(err, result){
                 if (err) 
                 { 
                     console.log(err.message); 
