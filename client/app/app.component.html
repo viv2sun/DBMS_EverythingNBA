@@ -18,10 +18,10 @@
                     <li>
                         <a>Compare Teams</a>
                     </li>
-                    <li class="active">
+                    <li >
                         <a>Leaderboard</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a>Stat Insights</a>
                     </li>
                 </ul>
@@ -39,5 +39,8 @@
     </div>
     <div *ngIf="selectedFeature == 'leaderboard'">
         <leaderboard></leaderboard>
+    </div>
+    <div *ngIf="selectedFeature == 'insights'">
+        <insights></insights>
     </div>
 </div>

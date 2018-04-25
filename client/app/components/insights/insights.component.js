@@ -1,0 +1,145 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('@angular/core');
+require('rxjs/add/operator/toPromise');
+var insights_service_1 = require('../../services/insights.service');
+var InsightsComponent = (function () {
+    // team1Data : TeamCmp;
+    // team2Data : TeamCmp;
+    // team1Squad : Object[];
+    // team2Squad : Object[];
+    // map = {};
+    // h2hmap = {};
+    function InsightsComponent(insightsService) {
+        this.insightsService = insightsService;
+        this.objectKeys = Object.keys;
+        this.positions = ['All', 'F', 'G', 'C'];
+        this.attributes = {};
+        //   // HEAD TO HEAD Fields
+        //   this.h2hmap['GAMES_PLAYED'] = 'Games Played';
+        //   this.h2hmap['TOTAL_POINTS'] = 'Total Points';
+        //   this.h2hmap['TOTAL_WINS'] = 'Total Wins';
+        //   this.h2hmap['PLAYOFF_WINS'] = 'Playoff Wins';
+        //   // Team Stats Fields
+        //   this.map['GAMES_PLAYED'] = 'Games Played';
+        //   this.map['DIV_RANK'] = 'Division Rank';
+        //   this.map['CONF_RANK'] = 'Conference Rank';
+        //   this.map['HOME_WIN'] = 'Home Wins';
+        //   this.map['HOME_LOSS'] = 'Home Losses';
+        //   this.map['AWAY_WIN'] = 'Away Wins';
+        //   this.map['AWAY_LOSS'] = 'Away Losses';
+        //   this.map['POINTS'] = 'Points';
+        //   this.map['ASSISTS'] = 'Assists';
+        //   this.map['STEALS'] = 'Steals';
+        //   this.map['BLOCKS'] = 'Blocks';
+        //   this.map['THREES'] = 'Threes Made';
+        //   this.map['REBOUNDS'] = 'Rebounds';
+    }
+    InsightsComponent.prototype.getTeams = function () {
+        var _this = this;
+        this.insightsService.getTeams()
+            .toPromise()
+            .then(function (teamAndYear) {
+            _this.years = teamAndYear.years;
+            _this.teams = teamAndYear.teams;
+            _this.teams.push({ "TEAM_ID": 'ALL', "NAME": 'All' });
+            _this.dataLoaded = true;
+        });
+    };
+    InsightsComponent.prototype.apply = function (event, team, fromYear, toYear, pos, attributes) {
+        var _this = this;
+        console.log(attributes);
+        console.log("Apply Filters " + team + " " + fromYear + " " + toYear + " " + pos);
+        this.attributeObj = {
+            'points': {
+                'set': attributes.pointsmin != undefined && attributes.pointsmax != undefined ? true : false,
+                'min': attributes.pointsmin,
+                'max': attributes.pointsmax
+            },
+            'assists': {
+                'set': attributes.assistsmin != undefined && attributes.assistsmax != undefined ? true : false,
+                'min': attributes.assistsmin,
+                'max': attributes.assistsmax
+            },
+            'steals': {
+                'set': attributes.stealsmin != undefined && attributes.stealsmax != undefined ? true : false,
+                'min': attributes.stealsmin,
+                'max': attributes.stealsmax
+            },
+            'blocks': {
+                'set': attributes.blocksmin != undefined && attributes.blocksmax != undefined ? true : false,
+                'min': attributes.blocksmin,
+                'max': attributes.blocksmax
+            },
+            'rebounds': {
+                'set': attributes.reboundsmin != undefined && attributes.reboundsmax != undefined ? true : false,
+                'min': attributes.reboundsmin,
+                'max': attributes.reboundsmax
+            },
+            'threes': {
+                'set': attributes.threesmin != undefined && attributes.threesmax != undefined ? true : false,
+                'min': attributes.threesmin,
+                'max': attributes.threesmax
+            },
+            'height': {
+                'set': attributes.heightmin != undefined && attributes.heightmax != undefined ? true : false,
+                'min': attributes.heightmin,
+                'max': attributes.heightmax
+            },
+            'weight': {
+                'set': attributes.weightmin != undefined && attributes.weightmax != undefined ? true : false,
+                'min': attributes.weightmin,
+                'max': attributes.weightmax
+            }
+        };
+        console.log(this.attributeObj);
+        event.preventDefault();
+        this.insightsService.getInsights(team, fromYear, toYear, pos, this.attributeObj)
+            .toPromise()
+            .then(function (data) {
+            console.log(data);
+            _this.data = data;
+        });
+    };
+    // compare(event, team1, team2, year){
+    //     console.log("Compare Team " + team1 + " " + team2 + " " + year);
+    //     event.preventDefault();
+    //     this.insightsService.compareTeams(team1, team2, year)
+    //       .toPromise()
+    //       .then(data => {
+    //               console.log(data);
+    //               this.data = data;
+    //               this.team1Data = data[team1];
+    //               this.team2Data = data[team2];
+    //               this.team1Squad = this.team1Data['squad'];
+    //               this.team2Squad = this.team2Data['squad'];
+    //               console.log(this.team1Data);
+    //               console.log(this.team2Data);
+    //               console.log(this.team1Squad);
+    //               console.log(this.team2Squad);
+    //       });
+    // }
+    InsightsComponent.prototype.ngOnInit = function () {
+        this.dataLoaded = false;
+        this.getTeams();
+    };
+    InsightsComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'insights',
+            templateUrl: 'insights.component.html'
+        }), 
+        __metadata('design:paramtypes', [insights_service_1.InsightsService])
+    ], InsightsComponent);
+    return InsightsComponent;
+}());
+exports.InsightsComponent = InsightsComponent;
+//# sourceMappingURL=insights.component.js.map

@@ -11,25 +11,29 @@ const config = {
 
 var fs = require("fs");
 
-router.get('/statinsights:tname/:pos', function(req, res, next){
+router.get('/getinsights:tname/:fromYear/:toYear/:pos/:attributes', function(req, res, next){
     console.log("Node JS: stat insights API" );
     console.log(req.body);
+    console.log(req.params);
     console.log(req.params.tname);
     var teamName = req.params.tname;
     var pos =  req.params.pos;
+    var attributeJson = req.params.attributes;
 
-    var attributeJson = {
-        'assists' : {
-            'set' : true,
-            'min' : 1000,
-            'max' : 2000
-        },
-        'points' : {
-            'set' : true,
-            'min' : 10000,
-            'max' : 20000
-        }
-    };
+    console.log(attributeJson);
+
+    // var attributeJson = {
+    //     'assists' : {
+    //         'set' : true,
+    //         'min' : 1000,
+    //         'max' : 2000
+    //     },
+    //     'points' : {
+    //         'set' : true,
+    //         'min' : 10000,
+    //         'max' : 20000
+    //     }
+    // };
 
     getStats(teamName, pos, attributeJson, res);
 
@@ -101,7 +105,7 @@ function getStats(teamName, pos, attributeJson, res) {
                 posClause = " and p.postion like '%" + pos + "%' ";
             }
 
-            var query = "select max(pts) pts_min, min(pts) pts_max, avg(pts) pts_avg,\
+            var query = "select min(pts) pts_min, max(pts) pts_max, avg(pts) pts_avg,\
                             min(ast) ast_min, max(ast) ast_max, avg(ast) ast_avg,\
                             min(stl) stl_min, max(stl) stl_max, avg(stl) stl_avg,\
                             min(blk) blk_min, max(blk) blk_max, avg(blk) blk_avg,\
@@ -170,7 +174,7 @@ function getStats(teamName, pos, attributeJson, res) {
                 stats.freethrows.avg = result.rows[0].FTM_AVG;
 
                 console.log(stats);
-                //res.send(stats);
+                res.send(stats);
 
                 connection.close(function(err){
                     if(err){
@@ -186,9 +190,8 @@ function getStats(teamName, pos, attributeJson, res) {
     });
 }
 
-router.get('/statinsights/getteams', function(req, res, next){
-    console.log("Node JS: Team and Year dropdown API" );
-
+router.get('/teams', function(req, res, next){
+    console.log("Node JS: Team and Year dropdown API - Insights");
     getTeams(res);    
 });
 
@@ -226,7 +229,7 @@ function getYear(teamAndYear, connection, res) {
             teamAndYear.years = yearArr;
 
             console.log(teamAndYear);
-            //res.json(teamAndYear);
+            res.json(teamAndYear);
 
             connection.close(function(err){
                 if(err){
@@ -251,6 +254,6 @@ var attributeJson = {
         }
 };
 
-getStats('BOS', 'C', attributeJson, null);
+//getStats('BOS', 'C', attributeJson, null);
 //getTeams(null);
 module.exports = router;

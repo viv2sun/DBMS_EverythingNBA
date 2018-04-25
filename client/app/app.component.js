@@ -14,6 +14,7 @@ var player_service_1 = require('./services/player.service');
 var teamcmp_service_1 = require('./services/teamcmp.service');
 var team_service_1 = require('./services/team.service');
 var leaderboard_service_1 = require('./services/leaderboard.service');
+var insights_service_1 = require('./services/insights.service');
 var AppComponent = (function () {
     function AppComponent() {
         // Map Page Names to pageSelectors
@@ -22,10 +23,12 @@ var AppComponent = (function () {
         this.map['Compare Teams'] = 'compareTeam';
         this.map['View Squad'] = 'viewSquad';
         this.map['Leaderboard'] = 'leaderboard';
+        this.map['Stat Insights'] = 'insights';
         //this.selectedFeature = "viewPlayer";
         //this.selectedFeature = "compareTeam";
         //this.selectedFeature = "viewSquad";
-        this.selectedFeature = "leaderboard";
+        //this.selectedFeature = "leaderboard";
+        this.selectedFeature = "insights";
     }
     AppComponent.prototype.setFeature = function (event) {
         event.preventDefault();
@@ -45,7 +48,7 @@ var AppComponent = (function () {
             moduleId: module.id,
             selector: 'my-app',
             templateUrl: 'app.component.html',
-            providers: [task_service_1.TaskService, player_service_1.PlayerService, teamcmp_service_1.CompareTeamService, team_service_1.TeamService, leaderboard_service_1.LeaderboardService]
+            providers: [task_service_1.TaskService, player_service_1.PlayerService, teamcmp_service_1.CompareTeamService, team_service_1.TeamService, leaderboard_service_1.LeaderboardService, insights_service_1.InsightsService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

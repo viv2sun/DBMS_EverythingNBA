@@ -8,6 +8,7 @@ var players = require('./routes/players');
 var cmpteams = require('./routes/cmpteams');
 var teams = require('./routes/teams');
 var lboard = require('./routes/leaderboard');
+var statInsights = require('./routes/statinsights');
 
 var port = 8001;
 
@@ -31,6 +32,7 @@ app.use('/feature', players);
 app.use('/teamcmp', cmpteams);
 app.use('/teams', teams);
 app.use('/leaderboard', lboard);
+app.use('/insights', statInsights);
 
 
 app.listen(port, function(){

@@ -23,6 +23,9 @@
   .squadtable thead {
     display: table-header-group;
   }
+  .statTop {
+    border-bottom: 2px solid black;
+  }
   
   /* .navbar-default .navbar-nav > li > a {
       color: #444;

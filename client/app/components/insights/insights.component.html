@@ -1,0 +1,172 @@
+<div *ngIf="dataLoaded" class="container">
+    <h1>Stat Insights</h1>
+    <div class="row statTop">
+        <div class="row" style="margin-left: 1%; margin-top: 2%; font-size: 18px;">
+            <p> Select from one to as many filters available and give min, max values for each. Once all filter values have been
+                entered, select "Apply Filters"</p>
+        </div>
+        <div class="row" style="margin-left: 1%; margin-top: 2%;">
+            <div class="col-md-9" style="width: 50%" style="margin-left: 5%;">
+                <form>
+                    <span class="label label-info" style="font-size: 18px; margin-top: 2%;">Attribute Filters</span>
+                    <table class="table squadtable" style="margin-top: 5%;">
+                        <tr>
+                            <th>Attributes</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Points</label>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.pointsmin" class="form-control" name="pointsmin">
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.pointsmax" class="form-control" name="pointsmax">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Assists</label>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.assistsmin" class="form-control" name="assistsmin">
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.assistsmax" class="form-control" name="assistsmax">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Steals</label>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.stealsmin" class="form-control" name="stealsmin">
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.stealsmax" class="form-control" name="stealsmax">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Blocks</label>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.blocksmin" class="form-control" name="blocksmin">
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.blocksmax" class="form-control" name="blocksmax">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Rebounds</label>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.reboundsmin" class="form-control" name="reboundsmin">
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.reboundsmax" class="form-control" name="reboundsmax">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Threes</label>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.threesmin" class="form-control" name="threesmin">
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.threesmax" class="form-control" name="threesmax">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Height</label>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.heightmin" class="form-control" name="heightmin">
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.heightmax" class="form-control" name="heightmax">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Weight</label>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.weightmin" class="form-control" name="weightmin">
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="attributes.weightmax" class="form-control" name="weightmax">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 2%;  margin-left: 0%;">
+            <div class="col-md-3" style="width: 20%;">
+                <div>
+                    <form class="well" style="background-color:rgb(224, 223, 223); padding: 10px;">
+                        <label> Team </label>
+                        <select class="form-control" name="sel" [(ngModel)]="selectedTeam">
+                            <option *ngFor="let team of teams" [ngValue]="team">
+                                {{team.NAME}}
+                            </option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2" style="margin-left: 2%;">
+                <div>
+                    <form class="well" style="background-color:rgb(224, 223, 223); padding: 10px;">
+                        <label> From Year</label>
+                        <select class="form-control" name="sel" [(ngModel)]="fromYear">
+                            <option *ngFor="let year of years" [ngValue]="year">
+                                {{year}}
+                            </option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-2" style="margin-left: 2%;">
+                <div>
+                    <form class="well" style="background-color:rgb(224, 223, 223); padding: 10px;">
+                        <label> To Year</label>
+                        <select class="form-control" name="sel" [(ngModel)]="toYear">
+                            <option *ngFor="let year of years" [ngValue]="year">
+                                {{year}}
+                            </option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-2" style="margin-left: 2%;">
+                <div>
+                    <form class="well" style="background-color:rgb(224, 223, 223); padding: 10px;">
+                        <label> Position </label>
+                        <select class="form-control" name="sel" [(ngModel)]="selectedPosition">
+                            <option *ngFor="let position of positions" [ngValue]="position">
+                                {{position}}
+                            </option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-2" style="margin-left: 2%; margin-top: 2%">
+                <input type="button" (click)="apply($event, selectedTeam.TEAM_ID, fromYear, toYear, selectedPosition, attributes)" value="Apply Filters"
+                    class="form-control btn btn-success btn-lg">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+</div>
