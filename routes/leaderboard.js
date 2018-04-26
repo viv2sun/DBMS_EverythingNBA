@@ -56,6 +56,8 @@ function getCalendarYear(teamName, fromYear, toYear, pos, stats, noOfRecords, re
 
             var statsClause = "";
 
+            var rowNumClause = " and rownum <= " + noOfRecords;
+
             switch(stats) {
                 case 'AST':
                 statsClause = 'assists';
@@ -91,7 +93,7 @@ function getCalendarYear(teamName, fromYear, toYear, pos, stats, noOfRecords, re
                             "order by "  +  statsClause +" desc) players,\
                             player p\
                         where p.player_id = players.pid " + posClause 
-                        + "and rownum <= :noOfRecords";
+                        + rowNumClause;
 
                 console.log(query);
             
