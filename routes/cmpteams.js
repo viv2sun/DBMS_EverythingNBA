@@ -109,7 +109,7 @@ function compareTeams(team1, team2, year, res) {
                     }
                     else{
                         console.log('No result from DB');
-                        res.json('No result from DB');
+                        res.json('');
                     }
                 }                
             });
