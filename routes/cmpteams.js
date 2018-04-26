@@ -100,11 +100,17 @@ function compareTeams(team1, team2, year, res) {
                     //res.send(err.message); 
                 }
                 else{
-                    result.rows.forEach(function(item) {
-                        teams[item.TEAM_ID] = item;
-                    });
-                    
-                    getHeadToHeadStats(teams, team1, team2, year, connection, res);
+                    if(result.rows.length!=0){
+                        result.rows.forEach(function(item) {
+                            teams[item.TEAM_ID] = item;
+                        });
+                        
+                        getHeadToHeadStats(teams, team1, team2, year, connection, res);
+                    }
+                    else{
+                        console.log('No result from DB');
+                        res.json('No result from DB');
+                    }
                 }                
             });
         }
@@ -131,13 +137,18 @@ function getHeadToHeadStats(teams, team1, team2, year, connection, res) {
             if(err) {
                 console.log(err);
             }
-
-            result.rows.forEach(function(item) {
-                teams[item.TEAM].head_to_head = item;
-            });
-            
-            getTeamSquad(teams, team1, team2, year, connection, res);
-            //res.json(teamDetails);           
+            if(result.rows.length!=0){
+                result.rows.forEach(function(item) {
+                    teams[item.TEAM].head_to_head = item;
+                });
+                
+                getTeamSquad(teams, team1, team2, year, connection, res);
+                //res.json(teamDetails);         
+            }
+            else{
+                console.log('No result from DB');
+                res.json('No result from DB');
+            }  
         });
 }
 
@@ -156,24 +167,27 @@ function getTeamSquad(teams, team1, team2, year, connection, res) {
                 console.log(err);
             }
 
-            teams[team1].squad = [];
-            teams[team2].squad = [];
-
-            result.rows.forEach(function(item) {
-                teams[item.TEAM].squad.push(item);
-                //console.log(teams[item.TEAM].squad[0]);
-            });            
             
-            console.log(teams);
-            res.json(teams); 
+                console.log('check');
+                teams[team1].squad = [];
+                teams[team2].squad = [];
 
-            connection.close(function(err){
-                if(err){
-                    console.log(err.message); 
-                    res.send(err.message); 
-                }
-                console.log("Connection Closed....");
-            });                      
+                result.rows.forEach(function(item) {
+                    teams[item.TEAM].squad.push(item);
+                    //console.log(teams[item.TEAM].squad[0]);
+                });            
+                
+                console.log(teams);
+                res.json(teams); 
+
+                connection.close(function(err){
+                    if(err){
+                        console.log(err.message); 
+                        res.send(err.message); 
+                    }
+                    console.log("Connection Closed....");
+                });  
+                                
         });
 }
 
