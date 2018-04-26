@@ -11,7 +11,7 @@ const config = {
 
 var fs = require("fs");
 
-router.get('/view:tname/:fromYear/:toYear/:pos/:stats/:noOfRecords/:isRookie', function(req, res, next){
+router.get('/view:tname/:fromYear/:toYear/:pos/:stats/:noOfRecords/:isRookie/:isCalendarYear', function(req, res, next){
     console.log("Node JS: Leaderboard API" );
     console.log(req.body);
     console.log(req.params.tname);
@@ -28,9 +28,95 @@ router.get('/view:tname/:fromYear/:toYear/:pos/:stats/:noOfRecords/:isRookie', f
         getRookies(teamName, fromYear, pos, stats, noOfRecords, res);
     }
     else {
-        getLeaders(teamName, fromYear, toYear, pos, stats, noOfRecords, res);
+        if(isCalendarYear == "true") {
+            console.log("Inside Calendar Year Players");
+            getCalendarYear(teamName, fromYear, toYear, pos, stats, noOfRecords, res)
+        }
+        else {
+            getLeaders(teamName, fromYear, toYear, pos, stats, noOfRecords, res);
+        }
     }
 });
+
+function getCalendarYear(teamName, fromYear, toYear, pos, stats, noOfRecords, res) {
+  
+    oracledb.getConnection(config, function(err, connection){
+        if (err) 
+        { 
+            console.log(err.message); 
+            //res.send(err.message); 
+        }
+        else {
+            console.log("Connection Established....");
+
+            var teamClause = "";
+            if(teamName != 'ALL' && teamName != 'undefined') {
+                teamClause = " and ps.team = '" + teamName + "' ";
+            }
+
+            var statsClause = "";
+
+            switch(stats) {
+                case 'AST':
+                statsClause = 'assists';
+                break;
+                case 'PTS':
+                statsClause = 'points';
+                break;
+                case 'BLK':
+                statsClause = 'blocks';
+                break;
+                case 'STL':
+                statsClause = 'steals';
+                break;
+                case 'REB':
+                statsClause = 'rebounds';
+                break;
+                case 'THREES':
+                statsClause = 'threes';
+                break;
+            }
+
+            var posClause = "";
+            if(pos != 'ALL') {
+                posClause = " and p.position like '%" + pos + "%' ";
+            }
+
+            var query = "select (p.last_name || ',' || p.first_name || ' - ' || players.year ) pname, players.points, players.assists,\
+                                    players.steals, players.blocks, players.threes, players.rebounds, players.games_played, players.minutes_played\
+                        from (Select ps.Player pid, ps.year year, ps.Pts points,ps.AST assists, ps.STL steals, ps.BLK blocks,\
+                                    ps.GP games_played, ps.minutes minutes_played, ps.threepm threes, ps.oreb + ps.dreb rebounds\
+                            from PLAYER_STATS ps\
+                            where ps.year between :fromYear and :toYear " + teamClause + 
+                            "order by "  +  statsClause +" desc) players,\
+                            player p\
+                        where p.player_id = players.pid " + posClause 
+                        + "and rownum <= :noOfRecords";
+
+                console.log(query);
+            
+            connection.execute(query, [fromYear, toYear, noOfRecords], function(err, result){
+                if (err) 
+                { 
+                    console.log(err.message); 
+                    //res.send(err.message); 
+                }
+                console.log(result.rows);
+                //res.send(result.rows);
+
+                connection.close(function(err){
+                    if(err){
+                        console.log(err.message); 
+                        //res.send(err.message); 
+                    }
+                    console.log("Connection Closed....");
+                });   
+            });
+
+            
+        }
+    });
+}
 
 function getRookies(teamName, year, pos, stats, noOfRecords, res) {
   
@@ -264,5 +350,6 @@ function getYear(teamAndYear, connection, res) {
 
 //getRookies('ALL', 1993, 'G', 'AST', 20, null);
 //getLeaders('ALL', 1980, 1990, 'C', 'PTS', 10, null);
+//getCalendarYear('CLE', 2000, 2010, 'ALL', 'PTS', 10, null);
 //getTeams(null);
 module.exports = router;
