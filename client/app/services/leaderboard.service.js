@@ -21,8 +21,8 @@ var LeaderboardService = (function () {
         return this.http.get('/leaderboard/getteams')
             .map(function (res) { return res.json(); });
     };
-    LeaderboardService.prototype.getTopResults = function (team, from, to, position, stat, recordNum, rookieFlag) {
-        return this.http.get('/leaderboard/view' + team + '/' + from + '/' + to + '/' + position + '/' + stat + '/' + recordNum + '/' + rookieFlag)
+    LeaderboardService.prototype.getTopResults = function (team, from, to, position, stat, recordNum, rookieFlag, calendarFlag) {
+        return this.http.get('/leaderboard/view' + team + '/' + from + '/' + to + '/' + position + '/' + stat + '/' + recordNum + '/' + rookieFlag + '/' + calendarFlag)
             .map(function (res) { return res.json(); });
     };
     LeaderboardService = __decorate([

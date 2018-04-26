@@ -17,7 +17,7 @@ var LeaderboardComponent = (function () {
         this.objectKeys = Object.keys;
         // statsmap = {};
         this.lmap = {};
-        this.positions = ['All', 'F', 'G', 'C'];
+        this.positions = ['ALL', 'F', 'G', 'C'];
         this.records = [5, 10, 20, 50];
         this.stats = [{
                 "code": "AST",
@@ -39,6 +39,7 @@ var LeaderboardComponent = (function () {
                 "name": "Threes"
             }];
         this.isRookie = false;
+        this.isCalendarYear = false;
         this.resultCount = 0;
         // Squad Fields
         this.lmap['PNAME'] = 'Player';
@@ -63,11 +64,11 @@ var LeaderboardComponent = (function () {
             _this.dataLoaded = true;
         });
     };
-    LeaderboardComponent.prototype.getLeaders = function (event, team, from, to, position, stat, recordNum, rookieFlag) {
+    LeaderboardComponent.prototype.getLeaders = function (event, team, from, to, position, stat, recordNum, rookieFlag, calendarFlag) {
         var _this = this;
-        console.log("Get Leaders " + team + " " + from + " " + to + " " + position + " " + stat + " " + recordNum + " " + rookieFlag);
+        console.log("Get Leaders " + team + " " + from + " " + to + " " + position + " " + stat + " " + recordNum + " " + rookieFlag + " " + calendarFlag);
         event.preventDefault();
-        this.leaderboardService.getTopResults(team, from, to, position, stat, recordNum, rookieFlag)
+        this.leaderboardService.getTopResults(team, from, to, position, stat, recordNum, rookieFlag, calendarFlag)
             .toPromise()
             .then(function (data) {
             console.log(data);

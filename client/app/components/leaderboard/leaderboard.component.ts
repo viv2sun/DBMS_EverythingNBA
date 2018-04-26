@@ -18,6 +18,7 @@ export class LeaderboardComponent implements OnInit {
   records: number[];
   leaders: Leader[];
   isRookie: boolean;
+  isCalendarYear: boolean;
   resultCount: number;
   stats: Object[];
   dataLoaded: boolean;
@@ -28,7 +29,7 @@ export class LeaderboardComponent implements OnInit {
   lmap = {};
   constructor(private leaderboardService: LeaderboardService) {
 
-    this.positions = ['All', 'F', 'G', 'C'];
+    this.positions = ['ALL', 'F', 'G', 'C'];
     this.records = [5,10,20,50];
 
     this.stats = [{
@@ -52,6 +53,7 @@ export class LeaderboardComponent implements OnInit {
     }];
 
     this.isRookie = false;
+    this.isCalendarYear = false;
     this.resultCount = 0;
 
       // Squad Fields
@@ -78,10 +80,10 @@ export class LeaderboardComponent implements OnInit {
       });
   }
 
-  getLeaders(event, team, from, to, position, stat, recordNum, rookieFlag) {
-      console.log("Get Leaders " + team + " " + from + " " + to + " " + position + " " + stat + " " + recordNum + " " + rookieFlag);
+  getLeaders(event, team, from, to, position, stat, recordNum, rookieFlag, calendarFlag) {
+      console.log("Get Leaders " + team + " " + from + " " + to + " " + position + " " + stat + " " + recordNum + " " + rookieFlag + " " + calendarFlag);
       event.preventDefault();
-      this.leaderboardService.getTopResults(team, from, to, position, stat, recordNum, rookieFlag)
+      this.leaderboardService.getTopResults(team, from, to, position, stat, recordNum, rookieFlag, calendarFlag)
         .toPromise()
         .then(data => {
                 console.log(data);

@@ -21,7 +21,7 @@ var InsightsComponent = (function () {
     function InsightsComponent(insightsService) {
         this.insightsService = insightsService;
         this.objectKeys = Object.keys;
-        this.positions = ['All', 'F', 'G', 'C'];
+        this.positions = ['ALL', 'F', 'G', 'C'];
         this.attributes = {};
         this.filterValue = {};
         this.displayFilters = [{

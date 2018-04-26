@@ -34,7 +34,7 @@ export class InsightsComponent implements OnInit {
     // h2hmap = {};
     constructor(private insightsService:InsightsService){
       
-      this.positions = ['All', 'F', 'G', 'C'];
+      this.positions = ['ALL', 'F', 'G', 'C'];
       this.attributes = {};
       this.filterValue = {};
 

@@ -22,6 +22,7 @@ router.get('/view:tname/:fromYear/:toYear/:pos/:stats/:noOfRecords/:isRookie/:is
     var stats =  req.params.stats;
     var noOfRecords =  req.params.noOfRecords;
     var isRookie =  req.params.isRookie;
+    var isCalendarYear = req.params.isCalendarYear;
     
     if(isRookie == "true") {
         console.log("Inside Rookie");
@@ -104,7 +105,7 @@ function getCalendarYear(teamName, fromYear, toYear, pos, stats, noOfRecords, re
                     //res.send(err.message); 
                 }
                 console.log(result.rows);
-                //res.send(result.rows);
+                res.send(result.rows);
 
                 connection.close(function(err){
                     if(err){

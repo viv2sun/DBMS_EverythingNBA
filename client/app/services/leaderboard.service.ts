@@ -14,8 +14,8 @@ export class LeaderboardService{
             .map(res => res.json());
     }
 
-    getTopResults(team, from, to, position, stat, recordNum, rookieFlag){
-        return this.http.get('/leaderboard/view'+team+'/'+from+'/'+to+'/'+position+'/'+stat+'/'+recordNum+'/'+rookieFlag)
+    getTopResults(team, from, to, position, stat, recordNum, rookieFlag, calendarFlag){
+        return this.http.get('/leaderboard/view'+team+'/'+from+'/'+to+'/'+position+'/'+stat+'/'+recordNum+'/'+rookieFlag+'/'+calendarFlag)
             .map(res => res.json());
     }
 }

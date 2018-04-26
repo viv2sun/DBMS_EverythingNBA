@@ -90,15 +90,25 @@
             </div>
 
             <div class="row">
+                    <div>
+                        <form class="well" style="background-color:rgb(224, 223, 223);">
+                            <label style="margin-right: 5%;"> For a Calendar Year ? </label>
+                            <input [(ngModel)]="isCalendarYear" type="checkbox" name="isCalendarYear" class="onoffswitch-checkbox" id="isCalendarYear" unchecked>
+                        </form>
+                    </div>
+                </div>
+
+            <div class="row">
                 <div style="margin-top: 10px;">
-                    <input type="button" (click)="getLeaders($event, selectedTeam.TEAM_ID, fromYear, toYear, selectedPosition, selectedStat.code, selectedRecordNum, isRookie)"
+                    <input type="button" (click)="getLeaders($event, selectedTeam.TEAM_ID, fromYear, toYear, selectedPosition, selectedStat.code, selectedRecordNum, isRookie, isCalendarYear)"
                         value="Apply Filters" class="form-control btn btn-primary btn-lg">
                 </div>
             </div>
         </div>
 
         <div class="col-md-9" style="margin-left: 3%;" *ngIf="leaders">
-                <h2 *ngIf="!isRookie" style="text-align: center; color: #148aad;"> Top {{resultCount}} Players with highest {{selectedStat.name}}</h2>
+                <h2 *ngIf="!isRookie && !isCalendarYear" style="text-align: center; color: #148aad;"> Top {{resultCount}} Players with highest {{selectedStat.name}}</h2>
+                <h2 *ngIf="!isRookie && isCalendarYear" style="text-align: center; color: #148aad;"> Top {{resultCount}} Players with highest {{selectedStat.name}} for a Calendar Year</h2>
                 <h2 *ngIf="isRookie" style="text-align: center; color: #148aad;"> Top {{resultCount}} Rookies with highest {{selectedStat.name}}</h2>
 
                 <div class="row" style="margin-top: 5%; margin-left: 0%;" *ngIf="leaders[0]">
