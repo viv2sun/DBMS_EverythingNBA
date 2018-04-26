@@ -117,6 +117,10 @@
                     </select>
                     <ul class="list-unstyled">
                         <li style="font-size: 15px;margin-top: 10%;">
+                            <span>Total Players :</span>
+                            <span style="margin-left: 10%; color: #1e24d8;" *ngIf="filterCount || filterCount == 0">{{filterCount}}</span>
+                        </li>
+                        <li style="font-size: 15px;margin-top: 10%;">
                             <span>Minimum :</span>
                             <span style="margin-left: 10%; color: #1e24d8;" *ngIf="filterValue.min || filterValue.min == 0">{{filterValue.min}} ({{filterValue.min_player}})</span>
                         </li>

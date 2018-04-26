@@ -47,10 +47,10 @@ var InsightsComponent = (function () {
                 "name": "Free Throws"
             }, {
                 "code": "weight",
-                "name": "Weight (inches)"
+                "name": "Weight (lbs)"
             }, {
                 "code": "height",
-                "name": "Height (lbs))"
+                "name": "Height (inches)"
             }];
     }
     InsightsComponent.prototype.getTeams = function () {
@@ -121,6 +121,7 @@ var InsightsComponent = (function () {
             if (_this.chosenDF) {
                 var val = _this.chosenDF['val'];
                 _this.filterValue = _this.data[val];
+                _this.filterCount = data.count;
             }
         });
     };
@@ -132,6 +133,7 @@ var InsightsComponent = (function () {
         };
         if (this.data) {
             this.filterValue = this.data[value];
+            this.filterCount = this.data['count'];
         }
     };
     InsightsComponent.prototype.ngOnInit = function () {

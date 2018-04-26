@@ -20,6 +20,7 @@ export class InsightsComponent implements OnInit {
     displayFilters : Object[];
     chosenDF : Object;
     filterValue : Object;
+    filterCount : number;
     data : Object;
     objectKeys = Object.keys;
 
@@ -60,10 +61,10 @@ export class InsightsComponent implements OnInit {
         "name" : "Free Throws"
       }, {
         "code" : "weight",
-        "name" : "Weight (inches)"
+        "name" : "Weight (lbs)"
       }, {
         "code" : "height",
-        "name" : "Height (lbs))"
+        "name" : "Height (inches)"
       }];
     }
 
@@ -135,6 +136,7 @@ export class InsightsComponent implements OnInit {
                   if(this.chosenDF){
                     var val = this.chosenDF['val'];
                     this.filterValue = this.data[val];
+                    this.filterCount = data.count;
                   }
           });
     }
@@ -147,6 +149,7 @@ export class InsightsComponent implements OnInit {
       };
       if(this.data){
         this.filterValue = this.data[value];
+        this.filterCount = this.data['count'];
       }
     }
 
