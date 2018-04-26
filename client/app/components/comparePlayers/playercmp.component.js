@@ -76,7 +76,7 @@ var ComparePlayersComponent = (function () {
             _this.player1Mates = data[pid1].teamMates;
             _this.player2Mates = data[pid2].teamMates;
             _this.player1Peak = data[pid1].peakYears;
-            _this.player2Peak = data[pid1].peakYears;
+            _this.player2Peak = data[pid2].peakYears;
             // console.log(this.team1Squad);
             // console.log(this.team2Squad);
         });

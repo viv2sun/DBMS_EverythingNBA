@@ -98,7 +98,7 @@ function getCalendarYear(teamName, fromYear, toYear, pos, stats, noOfRecords, re
 
                 console.log(query);
             
-            connection.execute(query, [fromYear, toYear, noOfRecords], function(err, result){
+            connection.execute(query, [fromYear, toYear], function(err, result){
                 if (err) 
                 { 
                     console.log(err.message); 
@@ -259,21 +259,22 @@ function getLeaders(teamName, fromYear, toYear, pos, stats, noOfRecords, res) {
                 posClause = " and p.position like '%" + pos + "%' ";
             }
 
+            var rowNumClause = " and rownum <= " + noOfRecords;
+
             var query = "select (p.last_name || ',' || p.first_name) pname, players.points, players.assists,\
             players.steals, players.blocks, players.threes, players.rebounds, players.games_played, players.minutes_played\
             from (Select ps.Player pid, Sum(ps.Pts) points, Sum(ps.AST) assists, Sum(ps.STL) steals, Sum(ps.BLK) blocks,\
                             Sum(ps.GP) games_played, Sum(ps.minutes) minutes_played, Sum(ps.threepm) threes, Sum(ps.oreb + ps.dreb) rebounds\
                     from PLAYER_STATS ps\
                     where ps.year between :fromYear and :toYear " + teamClause +
-                    "group by ps.Player\
+                    " group by ps.Player\
                     order by " + statsClause + " desc) players,\
                     player p\
-            where p.player_id = players.pid" + posClause +
-                "and rownum <= :noOfRecords";
+            where p.player_id = players.pid " + posClause + rowNumClause;
 
                 console.log(query);
             
-            connection.execute(query, [fromYear, toYear, noOfRecords], function(err, result){
+            connection.execute(query, [fromYear, toYear], function(err, result){
                 if (err) 
                 { 
                     console.log(err.message); 
