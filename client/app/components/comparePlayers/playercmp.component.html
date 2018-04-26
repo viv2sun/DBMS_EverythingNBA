@@ -1,0 +1,111 @@
+<div class="container" style="padding-left: 5px;">
+        <h1>Compare Players</h1>
+        <div class="row">
+                <div class="col-md-5">
+                        <div>
+                                <form class="well" (submit)="searchPlayer1($event, name1)">
+                                        <div class="form-group">
+                                                <div class="col-md-6">
+                                                        <input type="text" [(ngModel)]="name1" name="name1" class="form-control" placeholder="Search Player One">
+                                                </div>
+                                                <div class="col-md-6">
+                                                        <input type="button" (click)="searchPlayer1($event, name1)" value="Search Player One" class="form-control btn btn-primary btn-lg">
+                                                </div>
+                                        </div>
+                                </form>
+                        </div>
+
+                        <div class="player-list">
+                                <div class="btn-group-vertical" role="group">
+                                        <div *ngFor="let player1 of players1">
+                                                <button type="button" class="btn btn-lg btn-link active" (click)="setPlayer1(player1)">{{player1.FIRST_NAME}} {{player1.LAST_NAME}}</button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+
+                <div class="col-md-2" style="margin-top: 5%" *ngIf="selectedPlayer1 && selectedPlayer2">
+                        <input type="button" (click)="compare($event)" value="Compare" class="form-control btn btn-primary btn-lg">
+                </div>
+
+                <div class="col-md-5">
+                        <div>
+                                <form class="well" (submit)="searchPlayer2($event, name2)">
+                                        <div class="form-group">
+                                                <div class="col-md-6">
+                                                        <input type="text" [(ngModel)]="name2" name="name2" class="form-control" placeholder="Search Player Two">
+                                                </div>
+                                                <div class="col-md-6">
+                                                        <input type="button" (click)="searchPlayer2($event, name2)" value="Search Player Two" class="form-control btn btn-primary btn-lg">
+                                                </div>
+                                        </div>
+                                </form>
+                        </div>
+
+                        <div class="player-list">
+                                <div class="btn-group-vertical" role="group">
+                                        <div *ngFor="let player2 of players2">
+                                                <button type="button" class="btn btn-lg btn-link active" (click)="setPlayer2(player2)">{{player2.FIRST_NAME}} {{player2.LAST_NAME}}</button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+
+        </div>
+
+        <div class="row" *ngIf="dataLoaded" style="margin-top: 5%;">
+                <div class="col-md-8" style="width: 70%; margin-left: 10%;">
+                        <form>
+                                <span class="label label-info" style="font-size: 22px;">Player Comparison</span>
+                                <table class="table" style="margin-top: 14px; font-size: 18px;">
+                                        <tr>
+                                                <th></th>
+                                                <th>{{selectedPlayer1.FIRST_NAME}} {{selectedPlayer1.LAST_NAME}}</th>
+                                                <th>{{selectedPlayer2.FIRST_NAME}} {{selectedPlayer2.LAST_NAME}}</th>
+                                        </tr>
+                                        <tr *ngFor="let key of objectKeys(player1Data)">
+                                                <td *ngIf="map[key]" style="font-size: 18px;">{{map[key]}}</td>
+                                                <td *ngIf="map[key]">{{player1Data[key]}}</td>
+                                                <td *ngIf="map[key]">{{player2Data[key]}}</td>
+                                        </tr>
+                                        <tr>
+                                                <td style="font-size: 18px;">Peak Years</td>
+                                                <td>
+                                                        <ul class="list-inline">
+                                                                <li *ngFor="let p1Year of player1Peak">
+                                                                        <span>{{p1Year}}</span>
+                                                                </li>
+                                                        </ul>
+
+                                                </td>
+                                                <td>
+                                                        <ul class="list-inline">
+                                                                <li *ngFor="let p2Year of player2Peak">
+                                                                        <span>{{p2Year}}</span>
+                                                                </li>
+                                                        </ul>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                        <td>Popular Teammates</td>
+                                                        <td style="font-size: 18px;">
+                                                                <ul class="list-inline">
+                                                                        <li *ngFor="let tmate1 of player1Mates">
+                                                                                <span>{{tmate1}}</span>
+                                                                        </li>
+                                                                </ul>
+                                                        </td>
+                                                        <td>
+                                                                <ul class="list-inline">
+                                                                        <li *ngFor="let tmate2 of player2Mates">
+                                                                                <span>{{tmate2}}</span>
+                                                                        </li>
+                                                                </ul>
+                                                        </td>
+                                                </tr>
+                                </table>
+                        </form>
+                </div>
+        </div>
+
+</div>

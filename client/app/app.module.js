@@ -19,6 +19,7 @@ var teamcmp_component_1 = require('./components/compareTeams/teamcmp.component')
 var teams_component_1 = require('./components/teams/teams.component');
 var leaderboard_component_1 = require('./components/leaderboard/leaderboard.component');
 var insights_component_1 = require('./components/insights/insights.component');
+var playercmp_component_1 = require('./components/comparePlayers/playercmp.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,6 +33,7 @@ var AppModule = (function () {
                 teamcmp_component_1.CompareTeamsComponent,
                 teams_component_1.TeamComponent,
                 leaderboard_component_1.LeaderboardComponent,
+                playercmp_component_1.ComparePlayersComponent,
                 insights_component_1.InsightsComponent
             ],
             bootstrap: [app_component_1.AppComponent]

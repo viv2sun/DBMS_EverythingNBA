@@ -5,12 +5,13 @@ import { CompareTeamService } from './services/teamcmp.service';
 import { TeamService } from './services/team.service';
 import { LeaderboardService } from './services/leaderboard.service';
 import { InsightsService } from './services/insights.service';
+import { ComparePlayerService } from './services/playercmp.service';
 
 @Component({
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: 'app.component.html',
-  providers:[TaskService, PlayerService, CompareTeamService, TeamService, LeaderboardService, InsightsService]
+  providers:[TaskService, PlayerService, CompareTeamService, TeamService, LeaderboardService, InsightsService, ComparePlayerService]
 })
 
 export class AppComponent { 
@@ -26,12 +27,14 @@ export class AppComponent {
     this.map['View Squad'] = 'viewSquad';
     this.map['Leaderboard'] = 'leaderboard';
     this.map['Stat Insights'] = 'insights';
+    this.map['Compare Players'] = 'comparePlayer';
 
     //this.selectedFeature = "viewPlayer";
     //this.selectedFeature = "compareTeam";
     //this.selectedFeature = "viewSquad";
     //this.selectedFeature = "leaderboard";
-    this.selectedFeature = "insights";
+    this.selectedFeature = "comparePlayer";
+    //this.selectedFeature = "insights";
   }
 
   setFeature(event){

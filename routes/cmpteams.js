@@ -147,7 +147,7 @@ function getHeadToHeadStats(teams, team1, team2, year, connection, res) {
             }
             else{
                 console.log('No result from DB');
-                res.json('No result from DB');
+                res.json('');
             }  
         });
 }

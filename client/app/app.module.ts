@@ -9,6 +9,7 @@ import { CompareTeamsComponent } from './components/compareTeams/teamcmp.compone
 import { TeamComponent } from './components/teams/teams.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { InsightsComponent } from './components/insights/insights.component';
+import { ComparePlayersComponent } from './components/comparePlayers/playercmp.component';
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, FormsModule ],
@@ -19,6 +20,7 @@ import { InsightsComponent } from './components/insights/insights.component';
                   CompareTeamsComponent,
                   TeamComponent,
                   LeaderboardComponent,
+                  ComparePlayersComponent,
                   InsightsComponent
                 ],
   bootstrap: [AppComponent]

@@ -11,14 +11,14 @@ const config = {
 
 var fs = require("fs");
 
-router.get('/searchPlayer:pname', function(req, res, next){
+router.get('/searchplayer:pname', function(req, res, next){
     let conn;
     var playerName = '%' + req.params.pname + '%';
 
     searchPlayers(playerName, res);
 });
 
-router.get('/comparePlayers:pid1/:pid2', function(req, res, next){
+router.get('/compareplayers:pid1/:pid2', function(req, res, next){
     let conn;
     var player1 = req.params.pid1;
     var player2 = req.params.pid2;
@@ -144,8 +144,7 @@ function getPeakYears(players, player1, player2, connection, res) {
                 players[item.PID].peakYears.push(item.PEAK_YEARS);
             });
             
-            getConferenceTitles(players, player1, player2, connection, res);
-            //res.json(teamDetails);           
+            getConferenceTitles(players, player1, player2, connection, res);           
         });
 }
 
@@ -171,8 +170,7 @@ function getConferenceTitles(players, player1, player2, connection, res) {
                 players[item.PID].CONF_TITLE_COUNT = item.COUNT;
             });
             
-            getTeamsPlayedFor(players, player1, player2, connection, res);
-            //res.json(teamDetails);           
+            getTeamsPlayedFor(players, player1, player2, connection, res);         
         });
 }
 
@@ -205,6 +203,7 @@ function getTeamsPlayedFor(players, player1, player2, connection, res) {
             });
             
             console.log(players);
+            res.json(players); 
 
             connection.close(function(err){
                 if(err){
@@ -212,8 +211,7 @@ function getTeamsPlayedFor(players, player1, player2, connection, res) {
                     //res.send(err.message); 
                 }
                 console.log("Connection Closed....");
-            });
-            //res.json(teamDetails);           
+            });          
         });
 }
 
@@ -230,7 +228,7 @@ function searchPlayers(playerName, res) {
                     "select p.player_id, p.last_name, p.first_name from player p where lower(p.last_name) like :firstName or lower(p.first_name) like :lastName order by p.first_name",
                     [playerName, playerName], function(err, result){
                         console.log(result.rows);
-                        //res.json(result.rows);
+                        res.json(result.rows);
                         connection.close(function(err){
                             if(err){
                                 console.log(err.message); 
@@ -245,5 +243,5 @@ function searchPlayers(playerName, res) {
 
 
 //searchPlayers('lebron');
-comparePlayers('jamesle01', 'abdulka01', null);
+//comparePlayers('jamesle01', 'abdulka01', null);
 module.exports = router;
