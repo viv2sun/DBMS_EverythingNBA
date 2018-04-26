@@ -137,56 +137,64 @@ function getStats(teamName, fromYear, toYear, pos, attributeJson, res) {
 
                 stats = {};
 
-                stats.assists = {};
-                stats.assists.min = result.rows[0].AST_MIN;
-                stats.assists.max = result.rows[0].AST_MAX;
-                stats.assists.avg = parseInt(result.rows[0].AST_AVG, 10);
+                console.log(result.rows);
 
-                stats.blocks = {};
-                stats.blocks.min = result.rows[0].BLK_MIN;
-                stats.blocks.max = result.rows[0].BLK_MAX;
-                stats.blocks.avg = parseInt(result.rows[0].BLK_AVG, 10);
+                if(result.rows[0].COUNT != 0) {
 
-                stats.steals = {};
-                stats.steals.min = result.rows[0].STL_MIN;
-                stats.steals.max = result.rows[0].STL_MAX;
-                stats.steals.avg = parseInt(result.rows[0].STL_AVG, 10);
+                    stats.assists = {};
+                    stats.assists.min = result.rows[0].AST_MIN;
+                    stats.assists.max = result.rows[0].AST_MAX;
+                    stats.assists.avg = parseInt(result.rows[0].AST_AVG, 10);
 
-                stats.points = {};
-                stats.points.min = result.rows[0].PTS_MIN;
-                stats.points.max = result.rows[0].PTS_MAX;
-                stats.points.avg = parseInt(result.rows[0].PTS_AVG, 10);
+                    stats.blocks = {};
+                    stats.blocks.min = result.rows[0].BLK_MIN;
+                    stats.blocks.max = result.rows[0].BLK_MAX;
+                    stats.blocks.avg = parseInt(result.rows[0].BLK_AVG, 10);
 
-                stats.rebounds = {};
-                stats.rebounds.min = result.rows[0].REB_MIN;
-                stats.rebounds.max = result.rows[0].REB_MAX;
-                stats.rebounds.avg = parseInt(result.rows[0].REB_AVG, 10);
+                    stats.steals = {};
+                    stats.steals.min = result.rows[0].STL_MIN;
+                    stats.steals.max = result.rows[0].STL_MAX;
+                    stats.steals.avg = parseInt(result.rows[0].STL_AVG, 10);
 
-                stats.threes = {};
-                stats.threes.min = result.rows[0].THR_MIN;
-                stats.threes.max = result.rows[0].THR_MAX;
-                stats.threes.avg = parseInt(result.rows[0].THR_AVG, 10);
+                    stats.points = {};
+                    stats.points.min = result.rows[0].PTS_MIN;
+                    stats.points.max = result.rows[0].PTS_MAX;
+                    stats.points.avg = parseInt(result.rows[0].PTS_AVG, 10);
 
-                stats.freethrows = {};
-                stats.freethrows.min = result.rows[0].FTM_MIN;
-                stats.freethrows.max = result.rows[0].FTM_MAX;
-                stats.freethrows.avg = parseInt(result.rows[0].FTM_AVG, 10);
+                    stats.rebounds = {};
+                    stats.rebounds.min = result.rows[0].REB_MIN;
+                    stats.rebounds.max = result.rows[0].REB_MAX;
+                    stats.rebounds.avg = parseInt(result.rows[0].REB_AVG, 10);
 
-                stats.height = {};
-                stats.height.min = result.rows[0].H_MIN;
-                stats.height.max = result.rows[0].H_MAX;
-                stats.height.avg = parseInt(result.rows[0].H_AVG, 10);
+                    stats.threes = {};
+                    stats.threes.min = result.rows[0].THR_MIN;
+                    stats.threes.max = result.rows[0].THR_MAX;
+                    stats.threes.avg = parseInt(result.rows[0].THR_AVG, 10);
 
-                stats.weight = {};
-                stats.weight.min = result.rows[0].W_MIN;
-                stats.weight.max = result.rows[0].W_MAX;
-                stats.weight.avg = parseInt(result.rows[0].W_AVG, 10);
+                    stats.freethrows = {};
+                    stats.freethrows.min = result.rows[0].FTM_MIN;
+                    stats.freethrows.max = result.rows[0].FTM_MAX;
+                    stats.freethrows.avg = parseInt(result.rows[0].FTM_AVG, 10);
 
-                stats.count = result.rows[0].COUNT;
+                    stats.height = {};
+                    stats.height.min = result.rows[0].H_MIN;
+                    stats.height.max = result.rows[0].H_MAX;
+                    stats.height.avg = parseInt(result.rows[0].H_AVG, 10);
 
-                console.log(stats);
-                
-                getPlayersForPoints(connection, teamName, fromYear, toYear, pos, attributeJson, stats, whereClause, res);
+                    stats.weight = {};
+                    stats.weight.min = result.rows[0].W_MIN;
+                    stats.weight.max = result.rows[0].W_MAX;
+                    stats.weight.avg = parseInt(result.rows[0].W_AVG, 10);
+
+                    stats.count = result.rows[0].COUNT;
+
+                    console.log(stats);
+                    
+                    getPlayersForPoints(connection, teamName, fromYear, toYear, pos, attributeJson, stats, whereClause, res);
+                }
+                else {
+                    res.json('');
+                }
             });
 
             
@@ -477,6 +485,7 @@ function getPlayersForBlocks(connection, teamName, fromYear, toYear, pos, attrib
         }
 
         console.log(result);
+
         stats.blocks.min_player = result.rows[0].MIN_PLAYER;
         stats.blocks.max_player = result.rows[0].MAX_PLAYER
 
