@@ -56,18 +56,27 @@ var CompareTeamsComponent = (function () {
             .then(function (data) {
             console.log(data);
             _this.data = data;
-            _this.team1Data = data[team1];
-            _this.team2Data = data[team2];
-            _this.team1Squad = _this.team1Data['squad'];
-            _this.team2Squad = _this.team2Data['squad'];
-            console.log(_this.team1Data);
-            console.log(_this.team2Data);
-            console.log(_this.team1Squad);
-            console.log(_this.team2Squad);
+            if (data == '') {
+                _this.noResults = true;
+                _this.team1Data = undefined;
+                _this.team2Data = undefined;
+            }
+            else {
+                _this.noResults = false;
+                _this.team1Data = data[team1];
+                _this.team2Data = data[team2];
+                _this.team1Squad = _this.team1Data['squad'];
+                _this.team2Squad = _this.team2Data['squad'];
+                console.log(_this.team1Data);
+                console.log(_this.team2Data);
+                console.log(_this.team1Squad);
+                console.log(_this.team2Squad);
+            }
         });
     };
     CompareTeamsComponent.prototype.ngOnInit = function () {
         this.dataLoaded = false;
+        this.noResults = false;
         this.getTeams();
     };
     CompareTeamsComponent = __decorate([

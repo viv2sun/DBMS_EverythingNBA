@@ -115,7 +115,10 @@
                             {{df.name}}
                         </option>
                     </select>
-                    <ul class="list-unstyled">
+                    <div *ngIf="noResults">
+                            <span class="label label-danger" style="font-size: 20px; margin-left: 2%;">No Results found</span>
+                    </div>
+                    <ul *ngIf="filterValue" class="list-unstyled">
                         <li style="font-size: 15px;margin-top: 10%;">
                             <span>Total Players :</span>
                             <span style="margin-left: 10%; color: #1e24d8;" *ngIf="filterCount || filterCount == 0">{{filterCount}}</span>
@@ -141,7 +144,7 @@
             <div class="col-md-3" style="width: 20%;">
                 <div>
                     <form class="well" style="background-color:rgb(224, 223, 223); padding: 10px;">
-                        <label> Team </label>
+                        <label> Team <sup style="color: red; font-size: 15px;">*</sup> </label>
                         <select class="form-control" name="sel" [(ngModel)]="selectedTeam">
                             <option *ngFor="let team of teams" [ngValue]="team">
                                 {{team.NAME}}
@@ -189,7 +192,7 @@
                 </div>
             </div>
 
-            <div class="col-md-2" style="margin-left: 2%; margin-top: 2%">
+            <div *ngIf="selectedTeam" class="col-md-2" style="margin-left: 2%; margin-top: 2%">
                 <input type="button" (click)="apply($event, selectedTeam.TEAM_ID, fromYear, toYear, selectedPosition, attributes)" value="Apply Filters"
                     class="form-control btn btn-success btn-lg">
             </div>

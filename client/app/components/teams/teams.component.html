@@ -5,7 +5,9 @@
                         <div class="row" style="margin-top: 5%">
                                 <div>
                                         <form class="well" style="background-color:rgb(224, 223, 223);">
-                                                <label> Team </label>
+                                                <label> Team
+                                                        <sup style="color: red; font-size: 15px;">*</sup>
+                                                </label>
                                                 <select class="form-control" name="sel" [(ngModel)]="selectedTeam">
                                                         <option *ngFor="let team of teams" [ngValue]="team">
                                                                 {{team.NAME}}
@@ -18,7 +20,9 @@
                         <div class="row">
                                 <div>
                                         <form class="well" style="background-color:rgb(224, 223, 223);">
-                                                <label> Year </label>
+                                                <label> Year
+                                                        <sup style="color: red; font-size: 15px;">*</sup>
+                                                </label>
                                                 <select class="form-control" name="sel" [(ngModel)]="year">
                                                         <option *ngFor="let year of years" [ngValue]="year">
                                                                 {{year}}
@@ -29,8 +33,20 @@
                         </div>
 
                         <div class="row">
-                                <div style="margin-top: 10px;">
+                                <div style="margin-top: 10px;" *ngIf="selectedTeam && year">
                                         <input type="button" (click)="viewTeam($event, selectedTeam.TEAM_ID, year)" value="View Team" class="form-control btn btn-primary btn-lg">
+                                </div>
+                        </div>
+
+                        <div class="row" *ngIf="noResults" style="margin-top: 10%;">
+                                <div>
+                                        <span class="label label-danger" style="font-size: 20px; margin-top: 2%;">No Results found</span>
+                                </div>
+                        </div>
+
+                        <div class="row" *ngIf="noResults" style="margin-top: 10%;">
+                                <div>
+                                        <span class="label label-warning" style="font-size: 16px; margin-top: 2%;">Hint -- Please check whether the team selected played in the given year</span>
                                 </div>
                         </div>
                 </div>
@@ -64,10 +80,10 @@
                                         <span class="label label-info" style="font-size: 20px;">Squad Details</span>
                                         <table class="squadtable table" style="margin-top: 12px;">
                                                 <tr>
-                                                        <th *ngFor = "let key of objectKeys(teamSquad[0])">{{squadmap[key]}}</th>
+                                                        <th *ngFor="let key of objectKeys(teamSquad[0])">{{squadmap[key]}}</th>
                                                 </tr>
                                                 <tr *ngFor="let player of teamSquad">
-                                                        <td *ngFor = "let key of objectKeys(teamSquad[0])">{{player[key]}}</td>
+                                                        <td *ngFor="let key of objectKeys(teamSquad[0])">{{player[key]}}</td>
                                                 </tr>
                                         </table>
                                 </form>

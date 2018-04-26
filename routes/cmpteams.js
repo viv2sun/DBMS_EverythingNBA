@@ -111,6 +111,14 @@ function compareTeams(team1, team2, year, res) {
                     else{
                         console.log('No result from DB');
                         res.json('');
+
+                        connection.close(function(err){
+                            if(err){
+                                console.log(err.message); 
+                                res.send(err.message); 
+                            }
+                            console.log("Connection Closed....");
+                        }); 
                     }
                 }                
             });
@@ -149,6 +157,14 @@ function getHeadToHeadStats(teams, team1, team2, year, connection, res) {
             else{
                 console.log('No result from DB');
                 res.json('');
+
+                connection.close(function(err){
+                    if(err){
+                        console.log(err.message); 
+                        res.send(err.message); 
+                    }
+                    console.log("Connection Closed....");
+                });  
             }  
         });
 }
@@ -167,9 +183,6 @@ function getTeamSquad(teams, team1, team2, year, connection, res) {
             if(err) {
                 console.log(err);
             }
-
-            
-                console.log('check');
                 teams[team1].squad = [];
                 teams[team2].squad = [];
 

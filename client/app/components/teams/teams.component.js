@@ -64,10 +64,17 @@ var TeamComponent = (function () {
             _this.data = data;
             _this.teamStats = data['stats'];
             _this.teamSquad = data['squad'];
+            if (_this.teamSquad.length == 0) {
+                _this.noResults = true;
+            }
+            else {
+                _this.noResults = false;
+            }
         });
     };
     TeamComponent.prototype.ngOnInit = function () {
         this.dataLoaded = false;
+        this.noResults = false;
         this.getTeams();
     };
     TeamComponent = __decorate([

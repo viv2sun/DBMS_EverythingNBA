@@ -41,6 +41,15 @@
                         <input type="button" (click)="compare($event, team1.TEAM_ID, team2.TEAM_ID, year)" value="Compare" class="form-control btn btn-primary btn-lg">
                 </div>
         </div>
+
+        <div class="row" *ngIf="noResults">
+                <div>
+                        <span class="label label-danger" style="font-size: 20px; margin-left: 2%;">No Results found</span>
+                        <span class="label label-warning" style="font-size: 16px; margin-left: 2%;">Hint -- Please check whether the teams selected played in the given year</span>
+                </div>
+        </div>
+
+
         <div class="row" *ngIf="team1Data">
                 <div class="col-md-8" style="width: 60%;">
                         <div class="row" style="margin-bottom: 20px;">
@@ -88,7 +97,7 @@
                 </div>
         </div>
 
-        <div class="row" *ngIf="team1Data" style="margin-top: 5%;"> 
+        <div class="row" *ngIf="team1Data" style="margin-top: 5%;">
                 <div class="col-md-8" style="width: 70%; margin-left: 10%;">
                         <form>
                                 <span class="label label-info" style="font-size: 22px;">Statistics</span>

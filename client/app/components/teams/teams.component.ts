@@ -18,6 +18,7 @@ export class TeamComponent implements OnInit {
     teamStats: TeamStats;
     teamSquad: Squad[];
     dataLoaded : boolean;
+    noResults : boolean;
     data : Object;
     objectKeys = Object.keys;
 
@@ -73,11 +74,18 @@ export class TeamComponent implements OnInit {
                    this.data = data;
                    this.teamStats = data['stats'];
                    this.teamSquad = data['squad'];
+                   if(this.teamSquad.length == 0){
+                      this.noResults = true;
+                   }
+                   else {
+                    this.noResults = false;
+                   }
           });
     }
 
     ngOnInit() {
       this.dataLoaded = false;
+      this.noResults = false;
       this.getTeams();
     }
 }

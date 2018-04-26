@@ -5,7 +5,7 @@
             <div class="row" style="margin-top: 5%">
                 <div>
                     <form class="well" style="background-color:rgb(224, 223, 223);">
-                        <label> Team </label>
+                        <label> Team <sup style="color: red; font-size: 15px;">*</sup> </label>
                         <select class="form-control" name="sel" [(ngModel)]="selectedTeam">
                             <option *ngFor="let team of teams" [ngValue]="team">
                                 {{team.NAME}}
@@ -18,7 +18,7 @@
             <div class="row">
                 <div>
                     <form class="well" style="background-color:rgb(224, 223, 223);">
-                        <label> From Year </label>
+                        <label> From Year <sup style="color: red; font-size: 15px;">*</sup> </label>
                         <select class="form-control" name="sel" [(ngModel)]="fromYear">
                             <option *ngFor="let year of years" [ngValue]="year">
                                 {{year}}
@@ -31,7 +31,7 @@
             <div class="row">
                 <div>
                     <form class="well" style="background-color:rgb(224, 223, 223);">
-                        <label> To Year </label>
+                        <label> To Year <sup style="color: red; font-size: 15px;">*</sup> </label>
                         <select class="form-control" name="sel" [(ngModel)]="toYear">
                             <option *ngFor="let year of years" [ngValue]="year">
                                 {{year}}
@@ -44,7 +44,7 @@
             <div class="row">
                 <div>
                     <form class="well" style="background-color:rgb(224, 223, 223);">
-                        <label> Position </label>
+                        <label> Position <sup style="color: red; font-size: 15px;">*</sup> </label>
                         <select class="form-control" name="sel" [(ngModel)]="selectedPosition">
                             <option *ngFor="let position of positions" [ngValue]="position">
                                 {{position}}
@@ -57,7 +57,7 @@
             <div class="row">
                 <div>
                     <form class="well" style="background-color:rgb(224, 223, 223);">
-                        <label> Stats </label>
+                        <label> Stats <sup style="color: red; font-size: 15px;">*</sup> </label>
                         <select class="form-control" name="sel" [(ngModel)]="selectedStat">
                             <option *ngFor="let stat of stats" [ngValue]="stat">
                                 {{stat.name}}
@@ -70,7 +70,7 @@
             <div class="row">
                 <div>
                     <form class="well" style="background-color:rgb(224, 223, 223);">
-                        <label> Top Results </label>
+                        <label> Top Results <sup style="color: red; font-size: 15px;">*</sup> </label>
                         <select class="form-control" name="sel" [(ngModel)]="selectedRecordNum">
                             <option *ngFor="let record of records" [ngValue]="record">
                                 {{record}}
@@ -83,7 +83,7 @@
             <div class="row">
                 <div>
                     <form class="well" style="background-color:rgb(224, 223, 223);">
-                        <label style="margin-right: 5%;"> Is a Rookie ? </label>
+                        <label style="margin-right: 5%;"> Show Only Rookies </label>
                         <input [(ngModel)]="isRookie" type="checkbox" name="isRookie" class="onoffswitch-checkbox" id="isRookie" unchecked>
                     </form>
                 </div>
@@ -92,13 +92,13 @@
             <div class="row">
                     <div>
                         <form class="well" style="background-color:rgb(224, 223, 223);">
-                            <label style="margin-right: 5%;"> For a Calendar Year ? </label>
+                            <label style="margin-right: 5%;"> Check By Calendar Year </label>
                             <input [(ngModel)]="isCalendarYear" type="checkbox" name="isCalendarYear" class="onoffswitch-checkbox" id="isCalendarYear" unchecked>
                         </form>
                     </div>
                 </div>
 
-            <div class="row">
+            <div class="row" *ngIf="selectedTeam && fromYear && toYear && selectedPosition && selectedStat && selectedRecordNum">
                 <div style="margin-top: 10px;">
                     <input type="button" (click)="getLeaders($event, selectedTeam.TEAM_ID, fromYear, toYear, selectedPosition, selectedStat.code, selectedRecordNum, isRookie, isCalendarYear)"
                         value="Apply Filters" class="form-control btn btn-primary btn-lg">

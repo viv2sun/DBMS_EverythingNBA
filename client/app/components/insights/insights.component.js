@@ -118,10 +118,19 @@ var InsightsComponent = (function () {
             .then(function (data) {
             console.log(data);
             _this.data = data;
-            if (_this.chosenDF) {
-                var val = _this.chosenDF['val'];
-                _this.filterValue = _this.data[val];
-                _this.filterCount = data.count;
+            if (data == '') {
+                console.log('Hi');
+                _this.noResults = true;
+                _this.filterValue = undefined;
+            }
+            else {
+                console.log('Hello');
+                _this.noResults = false;
+                if (_this.chosenDF) {
+                    var val = _this.chosenDF['val'];
+                    _this.filterValue = _this.data[val];
+                    _this.filterCount = data.count;
+                }
             }
         });
     };
@@ -132,12 +141,14 @@ var InsightsComponent = (function () {
             val: value
         };
         if (this.data) {
+            this.noResults = false;
             this.filterValue = this.data[value];
             this.filterCount = this.data['count'];
         }
     };
     InsightsComponent.prototype.ngOnInit = function () {
         this.dataLoaded = false;
+        this.noResults = false;
         this.getTeams();
     };
     InsightsComponent = __decorate([

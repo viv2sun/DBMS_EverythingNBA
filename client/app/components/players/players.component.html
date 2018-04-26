@@ -28,10 +28,6 @@
         <h1>{{selectedPlayer.FIRST_NAME}} {{selectedPlayer.LAST_NAME}}</h1>
         <form>
             <table class="table">
-                    <tr>
-                        <th>FIELD</th>
-                        <th>VALUE</th>
-                    </tr>
                     <tr *ngFor="let key of objectKeys(selectedPlayer)">
                         <td *ngIf="map[key]">{{map[key]}}</td>
                         <td *ngIf="map[key]">{{selectedPlayer[key]}}</td>

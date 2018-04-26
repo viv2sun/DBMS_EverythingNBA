@@ -21,6 +21,7 @@ export class InsightsComponent implements OnInit {
     chosenDF : Object;
     filterValue : Object;
     filterCount : number;
+    noResults : boolean;
     data : Object;
     objectKeys = Object.keys;
 
@@ -133,10 +134,19 @@ export class InsightsComponent implements OnInit {
           .then(data => {
                   console.log(data);
                   this.data = data;
-                  if(this.chosenDF){
-                    var val = this.chosenDF['val'];
-                    this.filterValue = this.data[val];
-                    this.filterCount = data.count;
+                  if(data == ''){
+                    console.log('Hi');
+                    this.noResults = true;
+                    this.filterValue = undefined;
+                  }
+                  else {
+                    console.log('Hello');
+                    this.noResults = false;
+                    if(this.chosenDF){
+                      var val = this.chosenDF['val'];
+                      this.filterValue = this.data[val];
+                      this.filterCount = data.count;
+                    }
                   }
           });
     }
@@ -148,6 +158,7 @@ export class InsightsComponent implements OnInit {
         val : value
       };
       if(this.data){
+        this.noResults = false;
         this.filterValue = this.data[value];
         this.filterCount = this.data['count'];
       }
@@ -155,6 +166,7 @@ export class InsightsComponent implements OnInit {
 
     ngOnInit() {
       this.dataLoaded = false;
+      this.noResults = false;
       this.getTeams();
     }
 }

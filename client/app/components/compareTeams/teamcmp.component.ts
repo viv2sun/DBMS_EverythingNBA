@@ -17,6 +17,7 @@ export class CompareTeamsComponent implements OnInit {
     dataLoaded : boolean;
     data : Object;
     objectKeys = Object.keys;
+    noResults: boolean;
 
     team1Data : TeamCmp;
     team2Data : TeamCmp;
@@ -68,20 +69,29 @@ export class CompareTeamsComponent implements OnInit {
           .then(data => {
                   console.log(data);
                   this.data = data;
-                  this.team1Data = data[team1];
-                  this.team2Data = data[team2];
-                  this.team1Squad = this.team1Data['squad'];
-                  this.team2Squad = this.team2Data['squad'];
-                  console.log(this.team1Data);
-                  console.log(this.team2Data);
-                  console.log(this.team1Squad);
-                  console.log(this.team2Squad);
+                  if(data == ''){
+                    this.noResults = true;
+                    this.team1Data = undefined;
+                    this.team2Data = undefined;
+                  }
+                  else {
+                    this.noResults = false;
+                    this.team1Data = data[team1];
+                    this.team2Data = data[team2];
+                    this.team1Squad = this.team1Data['squad'];
+                    this.team2Squad = this.team2Data['squad'];
+                    console.log(this.team1Data);
+                    console.log(this.team2Data);
+                    console.log(this.team1Squad);
+                    console.log(this.team2Squad);
+                  }
           });
 
     }
 
     ngOnInit() {
       this.dataLoaded = false;
+      this.noResults = false;
       this.getTeams();
     }
 }
