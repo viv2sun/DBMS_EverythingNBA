@@ -310,9 +310,10 @@ function getTeams(res) {
             teamAndYear = {};
             connection.execute(
             "select ts.team team_id, (t.name || ' (' || min(ts.year) || '-' || max(ts.year) || ')') name\
-                from team_stats ts, team t\
-                where t.team_id = ts.team\
-                group by ts.team, t.name", function(err, result){
+                from team_stats ts, team t \
+                where t.team_id = ts.team \
+                group by ts.team, t.name \
+                order by team_id", function(err, result){
                 teamAndYear.teams = result.rows;
                 getYear(teamAndYear, connection, res);   
             });
